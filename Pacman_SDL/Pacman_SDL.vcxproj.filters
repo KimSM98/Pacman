@@ -25,6 +25,12 @@
     <Filter Include="소스 파일\GameActor">
       <UniqueIdentifier>{7c71d333-a296-4cb7-b992-9aabd4e04587}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Pacman">
+      <UniqueIdentifier>{ba167c3e-d31e-4d63-8e0e-a9bbcf2316ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Pacman">
+      <UniqueIdentifier>{f6e07c0d-5cb0-4261-a7fe-48f6a8ca9c73}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game_SDL.cpp">
@@ -90,20 +96,23 @@
     <ClCompile Include="AIState.cpp">
       <Filter>소스 파일\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Graph.cpp">
-      <Filter>소스 파일\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="PacmanMap.cpp">
-      <Filter>소스 파일\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>소스 파일\GameActor</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteSheetLibrary.cpp">
       <Filter>소스 파일\Components</Filter>
     </ClCompile>
     <ClCompile Include="AnimSpriteSheetComponent.cpp">
       <Filter>소스 파일\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Graph.cpp">
+      <Filter>소스 파일\Pacman</Filter>
+    </ClCompile>
+    <ClCompile Include="Pacman.cpp">
+      <Filter>소스 파일\Pacman</Filter>
+    </ClCompile>
+    <ClCompile Include="PacmanMap.cpp">
+      <Filter>소스 파일\Pacman</Filter>
+    </ClCompile>
+    <ClCompile Include="PacmanInputComponent.cpp">
+      <Filter>소스 파일\Pacman</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -170,20 +179,23 @@
     <ClInclude Include="AIComponent.h">
       <Filter>헤더 파일\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Graph.h">
-      <Filter>헤더 파일\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="PacmanMap.h">
-      <Filter>헤더 파일\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>헤더 파일\GameActor</Filter>
-    </ClInclude>
     <ClInclude Include="SpriteSheetLibrary.h">
       <Filter>헤더 파일\Components</Filter>
     </ClInclude>
     <ClInclude Include="AnimSpriteSheetComponent.h">
       <Filter>헤더 파일\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Pacman.h">
+      <Filter>헤더 파일\Pacman</Filter>
+    </ClInclude>
+    <ClInclude Include="PacmanInputComponent.h">
+      <Filter>헤더 파일\Pacman</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph.h">
+      <Filter>헤더 파일\Pacman</Filter>
+    </ClInclude>
+    <ClInclude Include="PacmanMap.h">
+      <Filter>헤더 파일\Pacman</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

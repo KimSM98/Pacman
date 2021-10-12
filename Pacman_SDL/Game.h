@@ -55,6 +55,8 @@ private:
 	class Ship* _Ship;
 	std::vector<class Asteroid*> _Asteroids;
 
+	class Pacman* _Pacman;
+
 	// Map
 	class Graph* _Graph;
 	class SpriteSheetLibrary* _SpriteSheetLib;

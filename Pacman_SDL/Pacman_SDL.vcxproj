@@ -179,8 +179,9 @@
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="MoveComponent.cpp" />
+    <ClCompile Include="PacmanInputComponent.cpp" />
     <ClCompile Include="PacmanMap.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Pacman.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="SpriteSheetLibrary.cpp" />
@@ -206,8 +207,9 @@
     <ClInclude Include="Laser.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="MoveComponent.h" />
+    <ClInclude Include="PacmanInputComponent.h" />
     <ClInclude Include="PacmanMap.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="Pacman.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="SpriteComponent.h" />

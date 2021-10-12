@@ -1,56 +1,6 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: 중간 디렉터리(Debug\)에 다른 프로젝트(Game_SDL.vcxproj)에서 공유하는 파일이 포함되어 있습니다.  이로 인해 잘못된 정리 및 다시 빌드 동작이 수행될 수 있습니다.
-  Random.cpp
-  Actor.cpp
-  AIComponent.cpp
-  AIState.cpp
-  AnimSpriteComponent.cpp
-C:\Users\KSM\source\repos\Pacman_SDL\AnimSpriteComponent.cpp(25,32): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KSM\source\repos\Pacman_SDL\AnimSpriteComponent.cpp(52,30): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  AnimSpriteSheetComponent.cpp
-C:\Users\KSM\source\repos\Pacman_SDL\AnimSpriteSheetComponent.cpp(27,32): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KSM\source\repos\Pacman_SDL\AnimSpriteSheetComponent.cpp(53,30): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Asteroid.cpp
-  BGSpriteComponent.cpp
-  BoxComponent.cpp
-C:\Users\KSM\source\repos\Pacman_SDL\BoxComponent.h(9,36): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KSM\source\repos\Pacman_SDL\BoxComponent.h(9,44): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Character.cpp
-  CircleComponent.cpp
-  CollisionComponent.cpp
-C:\Users\KSM\source\repos\Pacman_SDL\BoxComponent.h(9,36): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KSM\source\repos\Pacman_SDL\BoxComponent.h(9,44): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Component.cpp
   Game.cpp
-C:\Users\KSM\source\repos\Pacman_SDL\Game.cpp(156,19): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
-  Game_SDL.cpp
-  Graph.cpp
-C:\Users\KSM\source\repos\Pacman_SDL\Graph.cpp(65,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\KSM\source\repos\Pacman_SDL\Graph.cpp(186,18): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KSM\source\repos\Pacman_SDL\Graph.cpp(187,18): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KSM\source\repos\Pacman_SDL\Graph.cpp(204,73): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KSM\source\repos\Pacman_SDL\Graph.cpp(204,59): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KSM\source\repos\Pacman_SDL\Graph.cpp(204,45): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KSM\source\repos\Pacman_SDL\Graph.cpp(204,37): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  InputComponent.cpp
-  Laser.cpp
-  Math.cpp
-  MoveComponent.cpp
+C:\Users\KSM\source\repos\Pacman_SDL\Game.cpp(157,19): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
+  Pacman.cpp
   코드를 생성하고 있습니다...
-C:\Users\KSM\source\repos\Pacman_SDL\Graph.cpp(111): warning C4715: 'Graph::SetGraphStateFromFile': 모든 제어 경로에서 값을 반환하지는 않습니다.
-  컴파일하고 있습니다...
-  PacmanMap.cpp
-C:\Users\KSM\source\repos\Pacman_SDL\PacmanMap.cpp(14,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\KSM\source\repos\Pacman_SDL\PacmanMap.cpp(18,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  Player.cpp
-  Ship.cpp
-C:\Users\KSM\source\repos\Pacman_SDL\BoxComponent.h(9,36): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KSM\source\repos\Pacman_SDL\BoxComponent.h(9,44): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  SpriteComponent.cpp
-  SpriteSheetLibrary.cpp
-  TileMapComponent.cpp
-C:\Users\KSM\source\repos\Pacman_SDL\TileMapComponent.cpp(57,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\KSM\source\repos\Pacman_SDL\TileMapComponent.cpp(84,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\KSM\source\repos\Pacman_SDL\TileMapComponent.cpp(86,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  코드를 생성하고 있습니다...
-C:\Users\KSM\source\repos\Pacman_SDL\TileMapComponent.cpp(80): warning C4715: 'TileMapComponent::SetTileMapStateFromFile': 모든 제어 경로에서 값을 반환하지는 않습니다.
   Pacman_SDL.vcxproj -> C:\Users\KSM\source\repos\Pacman_SDL\Debug\Pacman_SDL.exe

@@ -11,7 +11,7 @@
 #include "AIState.h"
 #include "Graph.h"
 #include "SpriteSheetLibrary.h"
-#include "Player.h"
+#include "Pacman.h"
 
 Game::Game()
 	: _Window(nullptr)
@@ -139,6 +139,7 @@ void Game::ProcessInput()
 
 	// Character input
 	//_Character->ProcessKeyboard(state);
+	//_Pacman->ProcessKeyboard(state);
 }
 
 void Game::UpdateGame()
@@ -267,8 +268,10 @@ void Game::LoadData()
 	SpriteComponent* sprComp = new SpriteComponent(player);
 	sprComp->SetClip(_SpriteSheetLib->GetClip("Assets/PlayerSpriteSheet.png", 0, sprComp));
 
-	Player* ham = new Player(this);
-	ham->SetPosition(Vector2(200.f, 200.f));
+	_Pacman = new Pacman(this);
+	_Pacman->SetPosition(Vector2(200.f, 200.f));
+	/*Player* ham = new Player(this);
+	ham->SetPosition(Vector2(200.f, 200.f));*/
 
 }
 
