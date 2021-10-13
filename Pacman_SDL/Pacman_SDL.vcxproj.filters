@@ -114,6 +114,9 @@
     <ClCompile Include="PacmanInputComponent.cpp">
       <Filter>소스 파일\Pacman</Filter>
     </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>소스 파일\Pacman</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -195,6 +198,9 @@
       <Filter>헤더 파일\Pacman</Filter>
     </ClInclude>
     <ClInclude Include="PacmanMap.h">
+      <Filter>헤더 파일\Pacman</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
       <Filter>헤더 파일\Pacman</Filter>
     </ClInclude>
   </ItemGroup>

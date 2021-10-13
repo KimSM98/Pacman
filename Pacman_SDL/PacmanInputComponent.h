@@ -8,6 +8,9 @@ public:
 
 	void ProcessInput(const uint8_t* keyState) override;
 
-private:
+	void SetCurrentNode(class Node* node) { _CurrentNode = node; }
 
+private:
+	class Node* _CurrentNode;
+	class Node* _NextNode;
 };

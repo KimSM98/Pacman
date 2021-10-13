@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "AnimSpriteSheetComponent.h"
 #include "PacmanInputComponent.h"
+#include "Node.h"
 
 Pacman::Pacman(Game* game)
 	: Actor(game)
@@ -9,6 +10,7 @@ Pacman::Pacman(Game* game)
 	, _CurrentNode(nullptr)
 	, _NextNode(nullptr)
 {
+	/*
 	_AnimSprSheetComp = new AnimSpriteSheetComponent(this);
 	_AnimSprSheetComp->SetTexture(game->GetTexture("Assets/PlayerSpriteSheet.png"));
 
@@ -28,15 +30,23 @@ Pacman::Pacman(Game* game)
 
 	_AnimSprSheetComp->SetAnimations(animMap);
 	_AnimSprSheetComp->SetCurrentAnimation("Default");
+	*/
 
 	/*********************
 	InputComponent Setting
 	**********************/
-	PacmanInputComponent* inputComp = new PacmanInputComponent(this);
+	inputComp = new PacmanInputComponent(this);
 	inputComp->SetUpKey(SDL_SCANCODE_W);
 	inputComp->SetDownKey(SDL_SCANCODE_S);
 	inputComp->SetLeftKey(SDL_SCANCODE_A);
 	inputComp->SetRightKey(SDL_SCANCODE_D);
 	inputComp->SetMaxDownSpeed(300.f);
 	inputComp->SetMaxRightSpeed(300.f);
+
+}
+
+void Pacman::SetCurrentNode(Node* node)
+{
+	inputComp->SetCurrentNode(node);
+	_CurrentNode = node; 
 }

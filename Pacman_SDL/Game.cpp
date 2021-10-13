@@ -16,6 +16,8 @@
 Game::Game()
 	: _Window(nullptr)
 	, _Renderer(nullptr)
+	, _WindowWidth(1024)
+	, _WindowHeight(1024)
 	, _IsRunning(true)
 	, _TickCount(0)
 	, _IsUpdatingActors(false)
@@ -39,8 +41,8 @@ bool Game::Initialize()
 		"Game Programming",
 		100,
 		50,
-		1024,
-		1024,
+		_WindowWidth,
+		_WindowHeight,
 		0
 	);
 
@@ -242,6 +244,25 @@ void Game::LoadData()
 	tileMap->SetTileSetPixelSize(32);
 	tileMap->SetTileMapStateFromFile("Assets/Maps/Map_1.csv");*/
 	
+
+	/*******************
+	Sprite Sheet Library
+	********************/
+	// Initialize
+	_SpriteSheetLib = new SpriteSheetLibrary(this);
+
+	/**************
+	Tile Map, Graph
+	***************/
+	// Tile Map
+	// Get tile map sprite sheet
+	_SpriteSheetLib->LoadSpriteSheet("Assets/TileMapSpriteSheet1.png", 32); // Texture까지 보내기? tileMap의 setTexture에 접근할 수 있어야 한다.
+
+	TileMapComponent* tileMap = new TileMapComponent(temp, 70);
+	tileMap->SetClips(_SpriteSheetLib->GetSpriteSheetClips("Assets/TileMapSpriteSheet1.png", tileMap));
+	tileMap->SetTileMapStateFromFile("Assets/Maps/Map_1.csv");
+
+	// Graph
 	_Graph = new Graph(temp, 69);
 	// 노드 사이즈
 	_Graph->SetDistanceBetweenNodes(32);
@@ -253,25 +274,21 @@ void Game::LoadData()
 	***********************/
 
 
-
-	_SpriteSheetLib = new SpriteSheetLibrary(this);
-	_SpriteSheetLib->LoadSpriteSheet("Assets/TileMapSpriteSheet1.png", 32); // Texture까지 보내기? tileMap의 setTexture에 접근할 수 있어야 한다.
-
-	TileMapComponent* tileMap = new TileMapComponent(temp, 70);
-	tileMap->SetClips(_SpriteSheetLib->GetSpriteSheetClips("Assets/TileMapSpriteSheet1.png", tileMap));
-	tileMap->SetTileMapStateFromFile("Assets/Maps/Map_1.csv");
-
 	_SpriteSheetLib->LoadSpriteSheet("Assets/PlayerSpriteSheet.png", 32);
 	
-	Actor* player = new Actor(this);
-	player->SetPosition(Vector2(100.f, 100.f));
-	SpriteComponent* sprComp = new SpriteComponent(player);
+	// Player
+	_Pacman = new Pacman(this);
+	SpriteComponent* sprComp = new SpriteComponent(_Pacman);
 	sprComp->SetClip(_SpriteSheetLib->GetClip("Assets/PlayerSpriteSheet.png", 0, sprComp));
 
-	_Pacman = new Pacman(this);
-	_Pacman->SetPosition(Vector2(200.f, 200.f));
-	/*Player* ham = new Player(this);
-	ham->SetPosition(Vector2(200.f, 200.f));*/
+	// Set position
+	Node* node = _Graph->GetNode(1, 1);
+	if (node != nullptr) 
+	{
+		Vector2 nodePos = node->GetPos();
+		_Pacman->SetPosition(nodePos);
+		_Pacman->SetCurrentNode(node);
+	}
 
 }
 

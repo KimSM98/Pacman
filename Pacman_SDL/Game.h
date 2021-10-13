@@ -34,6 +34,8 @@ private:
 
 	SDL_Window* _Window;
 	SDL_Renderer* _Renderer;
+	int _WindowWidth;
+	int _WindowHeight;
 
 	bool _IsRunning;
 

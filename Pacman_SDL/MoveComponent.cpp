@@ -24,8 +24,8 @@ void MoveComponent::Update(float deltaTime)
 
 		if (pos.x < 0.f) pos.x = 1023.f;
 		else if (pos.x > 1024) pos.x = 0.f;
-		if (pos.y < 0.f) pos.y = 767.f;
-		else if (pos.y > 768.f) pos.y = 1.f;		
+		if (pos.y < 0.f) pos.y = 1023.f;
+		else if (pos.y > 1024) pos.y = 1.f;
 
 		_Owner->SetPosition(pos);
 	}
@@ -35,8 +35,8 @@ void MoveComponent::Update(float deltaTime)
 		Vector2 pos = _Owner->GetPosition();
 		pos.y += _DownSpeed * deltaTime;
 
-		if (pos.y < 0.f) pos.y = 767.f;
-		else if (pos.y > 768.f) pos.y = 1.f;
+		if (pos.y < 0.f) pos.y = 1023.f;
+		else if (pos.y > 1024) pos.y = 1.f;
 
 		_Owner->SetPosition(pos);
 	}
