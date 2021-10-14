@@ -1,8 +1,5 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: 중간 디렉터리(Debug\)에 다른 프로젝트(Game_SDL.vcxproj)에서 공유하는 파일이 포함되어 있습니다.  이로 인해 잘못된 정리 및 다시 빌드 동작이 수행될 수 있습니다.
-  Game.cpp
-C:\Users\KSM\source\repos\Pacman_SDL\Node.h(13,30): warning C4099: 'SDL_Renderer': 처음에는 'struct'을(를) 사용하여 형식 이름을 표시했는데 이제는 'class'을(를) 사용하여 표시합니다.
+  PacmanMoveComponent.cpp
+C:\Users\KSM\Desktop\Project\Pacman\Pacman\Pacman_SDL\Node.h(14,30): warning C4099: 'SDL_Renderer': 처음에는 'struct'을(를) 사용하여 형식 이름을 표시했는데 이제는 'class'을(를) 사용하여 표시합니다.
 C:\Users\KSM\source\repos\Game_SDL\include\SDL_render.h(131): message : 'SDL_Renderer' 선언을 참조하십시오.
-C:\Users\KSM\source\repos\Pacman_SDL\Game.cpp(159,19): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
-  Pacman.cpp
-  코드를 생성하고 있습니다...
-  Pacman_SDL.vcxproj -> C:\Users\KSM\source\repos\Pacman_SDL\Debug\Pacman_SDL.exe
+  Pacman_SDL.vcxproj -> C:\Users\KSM\Desktop\Project\Pacman\Pacman\Pacman_SDL\Debug\Pacman_SDL.exe

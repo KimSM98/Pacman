@@ -26,7 +26,15 @@ void Node::Draw(SDL_Renderer* renderer)
 	}
 }
 
-void Node::AddAdjNode(int dir, Node* node)
+void Node::AddAdjNode(Direction dir, Node* node)
 {
 	_AdjNodes[dir] = node;
+}
+
+Node* Node::GetAdjNode(const Direction dir) 
+{
+	if (_AdjNodes.find(dir) != _AdjNodes.end()) 
+		return _AdjNodes[dir];
+	
+	return nullptr;
 }

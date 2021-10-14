@@ -69,9 +69,6 @@
     <ClCompile Include="Asteroid.cpp">
       <Filter>소스 파일\GameActor</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Desktop\Books\Game Programming in C++ 소스코드\Chapter03\Random.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Math.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -117,6 +114,12 @@
     <ClCompile Include="Node.cpp">
       <Filter>소스 파일\Pacman</Filter>
     </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="PacmanMoveComponent.cpp">
+      <Filter>소스 파일\Pacman</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -158,9 +161,6 @@
     <ClInclude Include="Asteroid.h">
       <Filter>헤더 파일\GameActor</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Desktop\Books\Game Programming in C++ 소스코드\Chapter03\Random.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="InputComponent.h">
       <Filter>헤더 파일\Components</Filter>
     </ClInclude>
@@ -201,6 +201,12 @@
       <Filter>헤더 파일\Pacman</Filter>
     </ClInclude>
     <ClInclude Include="Node.h">
+      <Filter>헤더 파일\Pacman</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="PacmanMoveComponent.h">
       <Filter>헤더 파일\Pacman</Filter>
     </ClInclude>
   </ItemGroup>

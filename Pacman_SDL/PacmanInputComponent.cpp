@@ -2,7 +2,7 @@
 #include <iostream>
 
 PacmanInputComponent::PacmanInputComponent(Actor* owner)
-	: InputComponent(owner)
+	: InputComponent(owner), PacmanMoveComponent(owner)
 {
 
 }
@@ -19,7 +19,8 @@ void PacmanInputComponent::ProcessInput(const uint8_t* keyState)
 	{
 		downSpeed -= GetMaxDownSpeed();
 	}
-	SetDownSpeed(downSpeed);
+	PacmanMoveComponent::SetDownSpeed(downSpeed);
+	//MoveComponent::SetDownSpeed(downSpeed);
 
 
 	// Left / Right Movement
@@ -32,5 +33,5 @@ void PacmanInputComponent::ProcessInput(const uint8_t* keyState)
 	{
 		rightSpeed -= GetMaxRightSpeed();
 	}
-	SetRightSpeed(rightSpeed);
+	PacmanMoveComponent::SetRightSpeed(rightSpeed);
 }

@@ -159,7 +159,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Desktop\Books\Game Programming in C++ 소스코드\Chapter03\Random.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="AIComponent.cpp" />
     <ClCompile Include="AIState.cpp" />
@@ -183,13 +182,14 @@
     <ClCompile Include="PacmanInputComponent.cpp" />
     <ClCompile Include="PacmanMap.cpp" />
     <ClCompile Include="Pacman.cpp" />
+    <ClCompile Include="PacmanMoveComponent.cpp" />
+    <ClCompile Include="Random.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="SpriteSheetLibrary.cpp" />
     <ClCompile Include="TileMapComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Desktop\Books\Game Programming in C++ 소스코드\Chapter03\Random.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="AIComponent.h" />
     <ClInclude Include="AIState.h" />
@@ -212,6 +212,8 @@
     <ClInclude Include="PacmanInputComponent.h" />
     <ClInclude Include="PacmanMap.h" />
     <ClInclude Include="Pacman.h" />
+    <ClInclude Include="PacmanMoveComponent.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="SpriteComponent.h" />

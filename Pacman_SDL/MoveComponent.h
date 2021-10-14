@@ -13,6 +13,7 @@ public:
 	float GetForwardSpeed() const { return _ForwardSpeed; }
 	float GetRightSpeed() const { return _RightSpeed; }
 	float GetDownSpeed() const { return _DownSpeed; }
+
 	void SetAngularSpeed(float speed) { _AngularSpeed = speed; }
 	void SetForwardSpeed(float speed) { _ForwardSpeed = speed; }
 	void SetRightSpeed(float speed) { _RightSpeed = speed; }

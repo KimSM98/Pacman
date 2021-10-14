@@ -3,7 +3,7 @@
 #include "Math.h"
 #include <unordered_map>
 
-enum Direction { Top, Bottom, Left, Right };
+enum class Direction { None = 0, Top = 1, Bottom, Left, Right };
 
 class Node
 {
@@ -13,16 +13,17 @@ public:
 
 	void Draw(class SDL_Renderer* renderer);
 
-	void AddAdjNode(int dir, Node* node);
+	void AddAdjNode(Direction dir, Node* node);
 
-	void SetPixelSize(int size) { _PixelSize = size; }
 	SDL_Rect& GetRect() { return rect; }
 	Vector2 GetPos() { return _Pos; }
+	Node* GetAdjNode(Direction dir);
+	void SetPixelSize(int size) { _PixelSize = size; }
 
 private:
 	Vector2 _Pos;
 	SDL_Rect rect;
 	int _PixelSize;
 
-	std::unordered_map<int, Node*> _AdjNodes;
+	std::unordered_map<Direction, Node*> _AdjNodes;
 };

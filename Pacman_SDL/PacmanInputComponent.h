@@ -1,16 +1,15 @@
 #pragma once
 #include "InputComponent.h"
+#include "PacmanMoveComponent.h"
 
-class PacmanInputComponent : public InputComponent
+class PacmanInputComponent : public InputComponent, PacmanMoveComponent
 {
 public:
 	PacmanInputComponent(Actor* owner);
 
 	void ProcessInput(const uint8_t* keyState) override;
 
-	void SetCurrentNode(class Node* node) { _CurrentNode = node; }
+	void SetCurrentNode(class Node* node) { PacmanMoveComponent::SetCurrentNode(node); }
 
 private:
-	class Node* _CurrentNode;
-	class Node* _NextNode;
 };

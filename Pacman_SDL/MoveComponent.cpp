@@ -5,6 +5,8 @@ MoveComponent::MoveComponent(Actor* owner, int updateOrder)
 	: Component(owner, updateOrder)
 	, _AngularSpeed(0.f)
 	, _ForwardSpeed(0.f)
+	, _RightSpeed(0.f)
+	, _DownSpeed(0.f)
 {
 }
 
@@ -28,7 +30,7 @@ void MoveComponent::Update(float deltaTime)
 		else if (pos.y > 1024) pos.y = 1.f;
 
 		_Owner->SetPosition(pos);
-	}
+	}	
 
 	if (!Math::NearZero(_DownSpeed))
 	{
