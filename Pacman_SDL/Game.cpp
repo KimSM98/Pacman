@@ -282,7 +282,7 @@ void Game::LoadData()
 	sprComp->SetClip(_SpriteSheetLib->GetClip("Assets/PlayerSpriteSheet.png", 0, sprComp));
 
 	// Set position
-	Node* node = _Graph->GetNode(1, 1);
+	Node* node = _Graph->GetNode(1, 6);
 	if (node != nullptr) 
 	{
 		Vector2 nodePos = node->GetPos();

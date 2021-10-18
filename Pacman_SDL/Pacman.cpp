@@ -40,8 +40,9 @@ Pacman::Pacman(Game* game)
 	inputComp->SetDownKey(SDL_SCANCODE_S);
 	inputComp->SetLeftKey(SDL_SCANCODE_A);
 	inputComp->SetRightKey(SDL_SCANCODE_D);
-	inputComp->SetMaxDownSpeed(300.f);
-	inputComp->SetMaxRightSpeed(300.f);
+
+	inputComp->SetMaxDownSpeed(150.f);
+	inputComp->SetMaxRightSpeed(150.f);
 
 }
 

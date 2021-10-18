@@ -9,7 +9,7 @@ public:
 
 	void ProcessInput(const uint8_t* keyState) override;
 
-	void SetCurrentNode(class Node* node) { PacmanMoveComponent::SetCurrentNode(node); }
+	void SetCurrentNode(class Node* node);
 
 private:
 };

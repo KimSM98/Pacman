@@ -14,13 +14,14 @@ void PacmanInputComponent::ProcessInput(const uint8_t* keyState)
 	if (keyState[GetDownKey()])
 	{
 		downSpeed += GetMaxDownSpeed();
+		PacmanMoveComponent::SetNextNode(Direction::Bottom);
 	}
 	if (keyState[GetUpKey()])
 	{
 		downSpeed -= GetMaxDownSpeed();
+		PacmanMoveComponent::SetNextNode(Direction::Top);
 	}
 	PacmanMoveComponent::SetDownSpeed(downSpeed);
-	//MoveComponent::SetDownSpeed(downSpeed);
 
 
 	// Left / Right Movement
@@ -28,10 +29,17 @@ void PacmanInputComponent::ProcessInput(const uint8_t* keyState)
 	if (keyState[GetRightKey()])
 	{
 		rightSpeed += GetMaxRightSpeed();
+		PacmanMoveComponent::SetNextNode(Direction::Right);
 	}
 	if (keyState[GetLeftKey()])
 	{
 		rightSpeed -= GetMaxRightSpeed();
+		PacmanMoveComponent::SetNextNode(Direction::Left);
 	}
 	PacmanMoveComponent::SetRightSpeed(rightSpeed);
+}
+
+void PacmanInputComponent::SetCurrentNode(class Node* node)
+{
+	PacmanMoveComponent::SetCurrentNode(node);
 }
