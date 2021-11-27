@@ -11,7 +11,12 @@ public:
 	void Update(float deltaTime) override;
 
 	void SetCurrentNode(class Node* node);
+	// bool SetNextNode(Direction d);
 	bool SetNextNode(Direction d);
+	Direction GetDirection() const { return _Direction; }
+
+	void IncreaseT(float val);
+	void DecreaseT(float val);
 
 private:
 	bool FindNode(Direction d);
@@ -27,4 +32,12 @@ private:
 	bool isUpdateNextNode = true;
 
 	float bindary = 0.f;
+
+	// Reboot
+	void Move(float deltaTime);
+
+	Vector2 lerp(Vector2 currecntPos, Vector2 destPos, float t);
+	float t = 0.f;
+	Direction _Direction = Direction::None;
+
 };

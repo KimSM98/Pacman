@@ -11,15 +11,32 @@ void PacmanInputComponent::ProcessInput(const uint8_t* keyState)
 {
 	// Up / Down Movement
 	float downSpeed = 0.f;
+	Direction moveToDirection = GetDirection();
+
+	float moveSpeed = 0.02f;
 	if (keyState[GetDownKey()])
 	{
-		downSpeed += GetMaxDownSpeed();
-		PacmanMoveComponent::SetNextNode(Direction::Bottom);
+		//downSpeed += GetMaxDownSpeed();
+		if (moveToDirection == Direction::None)
+		{
+			PacmanMoveComponent::SetNextNode(Direction::Bottom);
+		}
+		if (moveToDirection == Direction::Bottom)
+			IncreaseT(moveSpeed);
+		else if (moveToDirection == Direction::Top)
+			DecreaseT(moveSpeed);
 	}
 	if (keyState[GetUpKey()])
 	{
-		downSpeed -= GetMaxDownSpeed();
-		PacmanMoveComponent::SetNextNode(Direction::Top);
+		//downSpeed -= GetMaxDownSpeed();
+		if (moveToDirection == Direction::None)
+		{
+			PacmanMoveComponent::SetNextNode(Direction::Top);
+		}
+		if (moveToDirection == Direction::Top)
+			IncreaseT(moveSpeed);
+		else if (moveToDirection == Direction::Bottom)
+			DecreaseT(moveSpeed);
 	}
 	PacmanMoveComponent::SetDownSpeed(downSpeed);
 
@@ -28,13 +45,27 @@ void PacmanInputComponent::ProcessInput(const uint8_t* keyState)
 	float rightSpeed = 0.f;
 	if (keyState[GetRightKey()])
 	{
-		rightSpeed += GetMaxRightSpeed();
-		PacmanMoveComponent::SetNextNode(Direction::Right);
+		//rightSpeed += GetMaxRightSpeed();
+		if (moveToDirection == Direction::None)
+		{
+			PacmanMoveComponent::SetNextNode(Direction::Right);
+		}
+		if (moveToDirection == Direction::Right)
+			IncreaseT(moveSpeed);
+		else if (moveToDirection == Direction::Left)
+			DecreaseT(moveSpeed);
 	}
 	if (keyState[GetLeftKey()])
 	{
-		rightSpeed -= GetMaxRightSpeed();
-		PacmanMoveComponent::SetNextNode(Direction::Left);
+		/*rightSpeed -= GetMaxRightSpeed();*/
+		if (moveToDirection == Direction::None)
+		{
+			PacmanMoveComponent::SetNextNode(Direction::Left);
+		}
+		if (moveToDirection == Direction::Left)
+			IncreaseT(moveSpeed);
+		else if (moveToDirection == Direction::Right)
+			DecreaseT(moveSpeed);
 	}
 	PacmanMoveComponent::SetRightSpeed(rightSpeed);
 }

@@ -8,106 +8,23 @@ PacmanMoveComponent::PacmanMoveComponent(Actor* owner, int updateOrder)
 {
 }
 
-void PacmanMoveComponent::Update(float deltaTime)
+void PacmanMoveComponent::Update(float deltaTime) 
 {
-
-	// Current Character position
-	Vector2 pos = _Owner->GetPosition();
-
-	float rightSpeed = GetRightSpeed();
-	float downSpeed = GetDownSpeed();
-
-	// Reached to any node
-	if (pos.x < _MovableRangeX.first + bindary)
-	{
-		SetRightSpeed(0.f);
-		_Owner->SetPosition(Vector2(_MovableRangeX.first, pos.y));
-
-		isUpdateNextNode = true;
-	}
-	else if (pos.x > _MovableRangeX.second - bindary)
-	{
-		SetRightSpeed(0.f);
-		
-		_Owner->SetPosition(Vector2(_MovableRangeX.second, pos.y));
-		isUpdateNextNode = true;
-	}
-	if (pos.y < _MovableRangeY.first + bindary)
-	{
-		SetDownSpeed(0.f);
-		//downSpeed = 0.f;
-		_Owner->SetPosition(Vector2(pos.x, _MovableRangeY.first));
-		isUpdateNextNode = true;
-	}
-	else if (pos.y > _MovableRangeY.second - bindary)
-	{
-		SetDownSpeed(0.f);
-		//downSpeed = 0.f;
-		_Owner->SetPosition(Vector2(pos.x, _MovableRangeY.second));
-		isUpdateNextNode = true;
-	}
-
-	MoveComponent::Update(deltaTime);
-
-	// Move
-	
-	//pos.y += downSpeed * deltaTime;
-
-	//if (pos.y < 0.f) pos.y = 1023.f;
-	//else if (pos.y > 1024) pos.y = 1.f;
-
-	////_Owner->SetPosition(pos);
-	//
-
-	//
-	//pos.x += rightSpeed * deltaTime;
-
-	//if (pos.x < 0.f) pos.x = 1023.f;
-	//else if (pos.x > 1024) pos.x = 0.f;
-
-	//_Owner->SetPosition(pos);
-	
-
-	if (_CurrentNode != nullptr && _NextNode != nullptr && isUpdateNextNode)
-	{
-		SetCurrentNode(_NextNode);
-	}
-
+	Move(deltaTime);
 }
 
 bool PacmanMoveComponent::SetNextNode(Direction d) 
 {
-	// 다음 노드를 설정
-	// 이동 범위 업데이트
-	if (!isUpdateNextNode)
-	{
+	if (_Direction != Direction::None) return false;
+	if (!FindNode(d)) {
+		_Direction = Direction::None;
 		return false;
 	}
 
-	if (FindNode(d))
-	{
-		_NextNode = _CurrentNode->GetAdjNode(d);
+	_NextNode = _CurrentNode->GetAdjNode(d);
+	_Direction = d;
 
-		_MovableRangeX = std::make_pair(_CurrentNode->GetPos().x, _NextNode->GetPos().x);
-		_MovableRangeY = std::make_pair(_CurrentNode->GetPos().y, _NextNode->GetPos().y);
-
-		if (_MovableRangeX.first > _MovableRangeX.second)
-		{
-			float temp = _MovableRangeX.second;
-			_MovableRangeX.second = _MovableRangeX.first;
-			_MovableRangeX.first = temp;
-		}
-		if (_MovableRangeY.first > _MovableRangeY.second)
-		{
-			float temp = _MovableRangeY.second;
-			_MovableRangeY.second = _MovableRangeY.first;
-			_MovableRangeY.first = temp;
-		}
-
-		return true;
-	}
-
-	return false;
+	return true;
 }
 
 bool PacmanMoveComponent::FindNode(Direction d) // from PacmanInputComponent
@@ -123,4 +40,72 @@ bool PacmanMoveComponent::FindNode(Direction d) // from PacmanInputComponent
 void PacmanMoveComponent::SetCurrentNode(Node* node)
 {
 	_CurrentNode = node;
+}
+
+void PacmanMoveComponent::Move(float deltaTime) 
+{
+	if (_Direction == Direction::None) return;
+	Vector2 startPos = _CurrentNode->GetPos();
+	Vector2 destPos = _NextNode->GetPos();
+
+	// 2
+	/*if (_Direction == Direction::Left){
+		t -= GetRightSpeed() * deltaTime;
+	}
+	else if (_Direction == Direction::Right) {
+		t += GetRightSpeed() * deltaTime;
+	}
+	else if (_Direction == Direction::Bottom){
+		t += GetDownSpeed() * deltaTime;
+	}
+	else if (_Direction == Direction::Top) {
+		t -= GetRightSpeed() * deltaTime;
+	}*/
+
+
+	//// Movement for AI
+	//if (_Direction == Direction::Left || _Direction == Direction::Right) {
+	//	t += deltaTime;
+	//}
+	//else if (_Direction == Direction::Bottom || _Direction == Direction::Top) {
+	//	t += deltaTime;
+	//}
+
+	if (t < 0.f) { // return to current position
+		t = 0.f;
+		_Direction = Direction::None;
+		_NextNode = nullptr;
+	}
+	else if (t > 1.f) { // Reached to destination
+		t = 1.f;
+		_Direction = Direction::None;
+		_CurrentNode = _NextNode;
+		_NextNode = nullptr;
+	}
+
+	Vector2 pos;
+	pos = lerp(startPos, destPos, t);
+	_Owner->SetPosition(pos);
+
+	std::cout << "t: " << t << '\n';
+
+	if (t >= 1.f) {
+		t = 0.f;
+	}
+}
+
+Vector2 PacmanMoveComponent::lerp(Vector2 currecntPos, Vector2 destPos, float t)
+{
+	// Get t value from Input component
+	return (1.f - t) * currecntPos + t * destPos;
+}
+
+void PacmanMoveComponent::IncreaseT(float val)
+{
+	t += val;
+}
+
+void PacmanMoveComponent::DecreaseT(float val)
+{
+	t -= val;
 }
