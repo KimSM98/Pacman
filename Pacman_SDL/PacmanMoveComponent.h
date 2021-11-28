@@ -18,20 +18,15 @@ public:
 	void IncreaseT(float val);
 	void DecreaseT(float val);
 
+	void MoveToNext();
+	void MoveToPrevious();
+
 private:
-	bool FindNode(Direction d);
+	Node* FindNode(Direction d);
 
 	Node* _CurrentNode;
 	Node* _NextNode;
-
-	// Movable range
-	std::pair<float, float> _MovableRangeX;
-	std::pair<float, float> _MovableRangeY;
-
-	// If actor reached to current node or next node, its true.
-	bool isUpdateNextNode = true;
-
-	float bindary = 0.f;
+	Node* _ReservedNextNode;
 
 	// Reboot
 	void Move(float deltaTime);
@@ -39,5 +34,9 @@ private:
 	Vector2 lerp(Vector2 currecntPos, Vector2 destPos, float t);
 	float t = 0.f;
 	Direction _Direction = Direction::None;
+	Direction _ReservedDirection = Direction::None;
+	
+	bool hasReachedEnd = false;
 
+	float _DirVal = 0.f;
 };

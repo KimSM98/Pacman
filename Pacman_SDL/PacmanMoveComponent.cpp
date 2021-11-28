@@ -15,26 +15,34 @@ void PacmanMoveComponent::Update(float deltaTime)
 
 bool PacmanMoveComponent::SetNextNode(Direction d) 
 {
-	if (_Direction != Direction::None) return false;
-	if (!FindNode(d)) {
+	if (_Direction == d) {
+		_DirVal = 1.f;
+		return false;
+	}
+	// Check current node has Direction d node in adj node.
+	Node* node = FindNode(d);
+	if (node == nullptr) {
 		_Direction = Direction::None;
 		return false;
 	}
 
-	_NextNode = _CurrentNode->GetAdjNode(d);
-	_Direction = d;
+	if (_Direction == Direction::None) {
+		_Direction = d;
+		_NextNode = node;
+		//_NextNode = _CurrentNode->GetAdjNode(d);
+		_DirVal = 1.f;
+	}
+	else {
+		_ReservedDirection = d;
+		_ReservedNextNode = node;
+	}
 
 	return true;
 }
 
-bool PacmanMoveComponent::FindNode(Direction d) // from PacmanInputComponent
+Node* PacmanMoveComponent::FindNode(Direction d) // from PacmanInputComponent
 {
-	if (_CurrentNode->GetAdjNode(d) != nullptr)
-	{
-		return true;
-	}
-
-	return false;
+	return _CurrentNode->GetAdjNode(d);
 }
 
 void PacmanMoveComponent::SetCurrentNode(Node* node)
@@ -42,45 +50,59 @@ void PacmanMoveComponent::SetCurrentNode(Node* node)
 	_CurrentNode = node;
 }
 
-void PacmanMoveComponent::Move(float deltaTime) 
+void PacmanMoveComponent::Move(float deltaTime)
 {
 	if (_Direction == Direction::None) return;
+	if (hasReachedEnd)
+	{
+		hasReachedEnd = false;
+
+		// Player want to keep move same direction
+		if (_ReservedDirection == Direction::None)
+		{
+			Node* sameDirectionNode = FindNode(_Direction);
+			// if cannot find direction node from adj node
+			if (sameDirectionNode == nullptr)
+			{
+				_Direction = Direction::None;
+				_NextNode = nullptr;
+				_DirVal = 0.f;
+
+				return;
+			}
+			else // keep move to same direction
+			{
+				_NextNode = sameDirectionNode;
+				t = 0.f;
+			}			
+		}
+		else // move to reserved direction
+		{
+			_Direction = _ReservedDirection;
+			_NextNode = _ReservedNextNode;
+
+			_ReservedDirection = Direction::None;
+			_ReservedNextNode = nullptr;
+		}
+		_DirVal = 1.f;
+		t = 0.f;
+
+		return;
+	}
+
 	Vector2 startPos = _CurrentNode->GetPos();
 	Vector2 destPos = _NextNode->GetPos();
 
-	// 2
-	/*if (_Direction == Direction::Left){
-		t -= GetRightSpeed() * deltaTime;
-	}
-	else if (_Direction == Direction::Right) {
-		t += GetRightSpeed() * deltaTime;
-	}
-	else if (_Direction == Direction::Bottom){
-		t += GetDownSpeed() * deltaTime;
-	}
-	else if (_Direction == Direction::Top) {
-		t -= GetRightSpeed() * deltaTime;
-	}*/
-
-
-	//// Movement for AI
-	//if (_Direction == Direction::Left || _Direction == Direction::Right) {
-	//	t += deltaTime;
-	//}
-	//else if (_Direction == Direction::Bottom || _Direction == Direction::Top) {
-	//	t += deltaTime;
-	//}
+	t += deltaTime * _DirVal;
 
 	if (t < 0.f) { // return to current position
 		t = 0.f;
-		_Direction = Direction::None;
-		_NextNode = nullptr;
+		hasReachedEnd = true;
 	}
 	else if (t > 1.f) { // Reached to destination
 		t = 1.f;
-		_Direction = Direction::None;
 		_CurrentNode = _NextNode;
-		_NextNode = nullptr;
+		hasReachedEnd = true;
 	}
 
 	Vector2 pos;
@@ -88,10 +110,6 @@ void PacmanMoveComponent::Move(float deltaTime)
 	_Owner->SetPosition(pos);
 
 	std::cout << "t: " << t << '\n';
-
-	if (t >= 1.f) {
-		t = 0.f;
-	}
 }
 
 Vector2 PacmanMoveComponent::lerp(Vector2 currecntPos, Vector2 destPos, float t)
@@ -108,4 +126,14 @@ void PacmanMoveComponent::IncreaseT(float val)
 void PacmanMoveComponent::DecreaseT(float val)
 {
 	t -= val;
+}
+
+void PacmanMoveComponent::MoveToNext()
+{
+	_DirVal = 1.f;
+}
+
+void PacmanMoveComponent::MoveToPrevious()
+{
+	_DirVal = -1.f;
 }
