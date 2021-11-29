@@ -4,7 +4,6 @@
 PacmanInputComponent::PacmanInputComponent(Actor* owner)
 	: InputComponent(owner), PacmanMoveComponent(owner)
 {
-	SetMoveSpeed(3.f);
 }
 void PacmanInputComponent::ProcessInput(const uint8_t* keyState)
 {
@@ -18,7 +17,7 @@ void PacmanInputComponent::ProcessInput(const uint8_t* keyState)
 			MoveToPrevious();
 		}
 	}
-	if (keyState[GetLeftKey()])
+	else if (keyState[GetLeftKey()])
 	{
 		PacmanMoveComponent::SetNextNode(Direction::Left);
 		if (moveToDirection == Direction::Right)
@@ -26,7 +25,7 @@ void PacmanInputComponent::ProcessInput(const uint8_t* keyState)
 			MoveToPrevious();
 		}
 	}
-	if (keyState[GetUpKey()])
+	else if (keyState[GetUpKey()])
 	{
 		PacmanMoveComponent::SetNextNode(Direction::Top);
 		if (moveToDirection == Direction::Bottom)
@@ -34,7 +33,7 @@ void PacmanInputComponent::ProcessInput(const uint8_t* keyState)
 			MoveToPrevious();
 		}
 	}
-	if (keyState[GetDownKey()])
+	else if (keyState[GetDownKey()])
 	{
 		PacmanMoveComponent::SetNextNode(Direction::Bottom);
 		if (moveToDirection == Direction::Top)

@@ -20,14 +20,13 @@ bool PacmanMoveComponent::SetNextNode(Direction d)
 		_DirVal = 1.f;
 		return false;
 	}
-	// _Direction이 있으면
+	// _Direction이 있으면 다음 방향을 예약한다.
 	if (_Direction != Direction::None)
 	{
 		_ReservedDirection = d;
-		std::cout << "Reserved" << '\n';
 		return false;
 	}
-	
+		
 	// Check current node has Direction d node in adj node.
 	Node* node = FindNode(d);
 	if (node == nullptr) {
@@ -38,7 +37,6 @@ bool PacmanMoveComponent::SetNextNode(Direction d)
 	// d 방향의 노드를 찾았을 때
 	_Direction = d;
 	_NextNode = node;
-	_DirVal = 1.f;
 
 	return true;
 }
@@ -59,40 +57,21 @@ void PacmanMoveComponent::Move(float deltaTime)
 	if (hasReachedEnd)
 	{
 		hasReachedEnd = false;
+		
+		// 움직임 멈춤
+		Direction previousDirection = _Direction;
+		_Direction = Direction::None;
+
 		t = 0.f;
-		// Player want to keep move same direction
-		if (_ReservedDirection == Direction::None) // 예약된 방향이 없으면
-		{
-			// 같은 방향으로 계속 이동 가능한지 확인
-			Node* sameDirectionNode = FindNode(_Direction);
-			// if cannot find direction node from adj node
-			if (sameDirectionNode == nullptr) // 같은 방향의 노드가 없으면 초기화
-			{
-				_Direction = Direction::None;
-				_NextNode = nullptr;
-				_DirVal = 0.f;
-
-				return;
-			}
-			else // 같은 방향으로 계속 이동
-			{
-				_NextNode = sameDirectionNode;
-				t = 0.f;
-			}			
-		}
-		else // 예약된 방향이 있으면
-		{
-			Direction temp = _Direction;
-			_Direction = Direction::None;
-			if (!SetNextNode(_ReservedDirection)) // 예약된 방향에 노드가 없으면
-			{
-				// 가던 방향으로 계속 이동 가능한지 확인
-				SetNextNode(temp);
-			}
-
-			_ReservedDirection = Direction::None;
-		}
 		_DirVal = 1.f;
+
+		// 예약된 방향이 없으면
+		if (!SetNextNode(_ReservedDirection))
+		{
+			SetNextNode(previousDirection);
+		}
+
+		_ReservedDirection = Direction::None;
 
 		return;
 	}
@@ -108,31 +87,19 @@ void PacmanMoveComponent::Move(float deltaTime)
 	}
 	else if (t > 1.f) { // Reached to destination
 		t = 1.f;
-		_CurrentNode = _NextNode;
 		hasReachedEnd = true;
+		_CurrentNode = _NextNode;
 	}
 
 	Vector2 pos;
 	pos = lerp(startPos, destPos, t);
 	_Owner->SetPosition(pos);
-
-	std::cout << "t: " << t << '\n';
 }
 
 Vector2 PacmanMoveComponent::lerp(Vector2 currecntPos, Vector2 destPos, float t)
 {
 	// Get t value from Input component
 	return (1.f - t) * currecntPos + t * destPos;
-}
-
-void PacmanMoveComponent::IncreaseT(float val)
-{
-	t += val;
-}
-
-void PacmanMoveComponent::DecreaseT(float val)
-{
-	t -= val;
 }
 
 void PacmanMoveComponent::MoveToNext()
