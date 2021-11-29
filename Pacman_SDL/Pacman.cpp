@@ -43,6 +43,7 @@ Pacman::Pacman(Game* game)
 
 	inputComp->SetMaxDownSpeed(1.f);
 	inputComp->SetMaxRightSpeed(1.f);
+	
 
 }
 
