@@ -2,15 +2,35 @@
 #include <iostream>
 #include <algorithm>
 #include "Actor.h"
+#include "Math.h"
 
 PacmanMoveComponent::PacmanMoveComponent(Actor* owner, int updateOrder)
 	: MoveComponent(owner)
 {
+	_Owner = owner;
 }
 
 void PacmanMoveComponent::Update(float deltaTime) 
 {
 	Move(deltaTime);
+
+	switch (_Direction)
+	{		
+	case Direction::Right:
+		_Owner->SetRotation(0);
+		break;
+	case Direction::Left:
+		_Owner->SetRotation(Math::Pi);
+		break;
+	case Direction::Top:
+		_Owner->SetRotation(0.5f * Math::Pi);
+		break;
+	case Direction::Bottom:
+		_Owner->SetRotation(1.5f * Math::Pi);
+		break;
+	default:
+		break;
+	}
 }
 
 bool PacmanMoveComponent::SetNextNode(Direction d) 

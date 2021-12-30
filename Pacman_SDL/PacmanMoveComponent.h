@@ -36,4 +36,6 @@ private:
 	// 이동 방향. 0: 출발지로 돌아감, 2: 목적지로 감
 	float _DirVal = 0.f;
 	float _MoveSpeed = 1.f;
+
+	Actor* _Owner;
 };
