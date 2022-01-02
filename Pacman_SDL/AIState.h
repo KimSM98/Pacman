@@ -17,51 +17,51 @@ protected:
 	class AIComponent* _Owner;
 };
 
-
-class AIPatrol : public AIState
-{
-public:
-	AIPatrol(class AIComponent* owner) : AIState(owner) {}
-
-	// 상태에 대한 행동 재정의
-	void Update(float deltaTime) override;
-	void OnEnter() override;
-	void OnExit() override;
-
-	const char* GetName() const override
-	{
-		return "Patrol";
-	}
-};
-
-class AIDeath : public AIState
-{
-public:
-	AIDeath(class AIComponent* owner) : AIState(owner) {}
-
-	// 상태에 대한 행동 재정의
-	void Update(float deltaTime) override;
-	void OnEnter() override;
-	void OnExit() override;
-
-	const char* GetName() const override
-	{
-		return "Death";
-	}
-};
-
-class AIAttack : public AIState
-{
-public:
-	AIAttack(class AIComponent* owner) : AIState(owner) {}
-
-	// 상태에 대한 행동 재정의
-	void Update(float deltaTime) override;
-	void OnEnter() override;
-	void OnExit() override;
-
-	const char* GetName() const override
-	{
-		return "Death";
-	}
-};
+//
+//class AIPatrol : public AIState
+//{
+//public:
+//	AIPatrol(class AIComponent* owner) : AIState(owner) {}
+//
+//	// 상태에 대한 행동 재정의
+//	void Update(float deltaTime) override;
+//	void OnEnter() override;
+//	void OnExit() override;
+//
+//	const char* GetName() const override
+//	{
+//		return "Patrol";
+//	}
+//};
+//
+//class AIDeath : public AIState
+//{
+//public:
+//	AIDeath(class AIComponent* owner) : AIState(owner) {}
+//
+//	// 상태에 대한 행동 재정의
+//	void Update(float deltaTime) override;
+//	void OnEnter() override;
+//	void OnExit() override;
+//
+//	const char* GetName() const override
+//	{
+//		return "Death";
+//	}
+//};
+//
+//class AIAttack : public AIState
+//{
+//public:
+//	AIAttack(class AIComponent* owner) : AIState(owner) {}
+//
+//	// 상태에 대한 행동 재정의
+//	void Update(float deltaTime) override;
+//	void OnEnter() override;
+//	void OnExit() override;
+//
+//	const char* GetName() const override
+//	{
+//		return "Death";
+//	}
+//};

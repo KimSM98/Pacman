@@ -11,13 +11,14 @@ public:
 	Node() : _Pos(Vector2(0, 0)), _PixelSize(0) {};
 	Node(Vector2 pos, int pixelSize);
 
-	void Draw(class SDL_Renderer* renderer);
+	void Draw(SDL_Renderer* renderer);
 
 	void AddAdjNode(Direction dir, Node* node);
 
 	SDL_Rect& GetRect() { return rect; }
 	Vector2 GetPos() { return _Pos; }
 	Node* GetAdjNode(Direction dir);
+	std::unordered_map<Direction, Node*> GetAdjNodes() { return _AdjNodes; }
 	void SetPixelSize(int size) { _PixelSize = size; }
 
 private:

@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_map>
 #include "SpriteSheetLibrary.h"
+#include "Graph.h"
 class Game
 {
 public:
@@ -24,6 +25,8 @@ public:
 	void AddAsteroid(class Asteroid* ast);
 	void RemoveAsteroid(class Asteroid* ast);
 	std::vector<class Asteroid*>& GetAsteroids() { return _Asteroids; }
+
+	Graph* GetGraph() { return _Graph; }
 
 private:
 	void ProcessInput();

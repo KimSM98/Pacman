@@ -66,11 +66,6 @@ Node* PacmanMoveComponent::FindNode(Direction d) // from PacmanInputComponent
 	return _CurrentNode->GetAdjNode(d);
 }
 
-void PacmanMoveComponent::SetCurrentNode(Node* node)
-{
-	_CurrentNode = node;
-}
-
 void PacmanMoveComponent::Move(float deltaTime)
 {
 	if (_Direction == Direction::None) return;
@@ -85,7 +80,7 @@ void PacmanMoveComponent::Move(float deltaTime)
 		t = 0.f;
 		_DirVal = 1.f;
 
-		// 예약된 방향이 없으면
+		// 예약된 방향에 노드가 없으면
 		if (!SetNextNode(_ReservedDirection))
 		{
 			SetNextNode(previousDirection);

@@ -12,6 +12,7 @@
 #include "Graph.h"
 #include "SpriteSheetLibrary.h"
 #include "Pacman.h"
+#include "Ghost.h"
 
 Game::Game()
 	: _Window(nullptr)
@@ -156,7 +157,7 @@ void Game::UpdateGame()
 	// 최대 delta time값 고정
 	if (deltaTime > 0.05f)
 	{
-		deltaTime = 0.05;
+		deltaTime = 0.05f;
 	}
 
 	// 모든 액터를 업데이트
@@ -273,21 +274,29 @@ void Game::LoadData()
 	Player, Ghost Actor 생성
 	***********************/
 
-
+	// Sprite Sheet Library
 	_SpriteSheetLib->LoadSpriteSheet("Assets/PlayerSpriteSheet.png", 32);
 	
 	// Player
 	_Pacman = new Pacman(this);
-	SpriteComponent* sprComp = new SpriteComponent(_Pacman);
-	sprComp->SetClip(_SpriteSheetLib->GetClip("Assets/PlayerSpriteSheet.png", 0, sprComp));
+	//// Add SpriteComponent to Pacman
+	//SpriteComponent* sprComp = new SpriteComponent(_Pacman);
+	//sprComp->SetClip(_SpriteSheetLib->GetClip("Assets/PlayerSpriteSheet.png", 0, sprComp));
 
-	// Set position
-	Node* node = _Graph->GetNode(1, 6);
+	//// Set Pacman position
+	//Node* node = _Graph->GetNode(1, 6);
+	//if (node != nullptr) 
+	//{
+	//	Vector2 nodePos = node->GetPos();
+	//	_Pacman->SetPosition(nodePos);
+	//	_Pacman->SetCurrentNode(node);
+	//}
+
+	Ghost* ghost = new Ghost(this);
+	Node* node = _Graph->GetNode(4, 6);
 	if (node != nullptr) 
 	{
-		Vector2 nodePos = node->GetPos();
-		_Pacman->SetPosition(nodePos);
-		_Pacman->SetCurrentNode(node);
+		ghost->SetPositionByNode(node);
 	}
 
 }

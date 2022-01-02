@@ -173,6 +173,8 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game_SDL.cpp" />
+    <ClCompile Include="Ghost.cpp" />
+    <ClCompile Include="GhostAI.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="Laser.cpp" />
@@ -203,6 +205,8 @@
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Ghost.h" />
+    <ClInclude Include="GhostAI.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="Laser.h" />

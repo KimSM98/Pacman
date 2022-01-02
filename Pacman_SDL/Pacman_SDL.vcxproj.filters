@@ -120,6 +120,12 @@
     <ClCompile Include="PacmanMoveComponent.cpp">
       <Filter>소스 파일\Pacman</Filter>
     </ClCompile>
+    <ClCompile Include="GhostAI.cpp">
+      <Filter>소스 파일\Pacman</Filter>
+    </ClCompile>
+    <ClCompile Include="Ghost.cpp">
+      <Filter>소스 파일\Pacman</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -176,9 +182,6 @@
     <ClInclude Include="BoxComponent.h">
       <Filter>헤더 파일\Components</Filter>
     </ClInclude>
-    <ClInclude Include="AIState.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="AIComponent.h">
       <Filter>헤더 파일\Components</Filter>
     </ClInclude>
@@ -207,6 +210,15 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="PacmanMoveComponent.h">
+      <Filter>헤더 파일\Pacman</Filter>
+    </ClInclude>
+    <ClInclude Include="GhostAI.h">
+      <Filter>헤더 파일\Pacman</Filter>
+    </ClInclude>
+    <ClInclude Include="AIState.h">
+      <Filter>헤더 파일\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Ghost.h">
       <Filter>헤더 파일\Pacman</Filter>
     </ClInclude>
   </ItemGroup>

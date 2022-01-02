@@ -6,9 +6,6 @@
 
 Pacman::Pacman(Game* game)
 	: Actor(game)
-	, _AnimSprSheetComp(nullptr)
-	, _CurrentNode(nullptr)
-	, _NextNode(nullptr)
 {
 	/*
 	_AnimSprSheetComp = new AnimSpriteSheetComponent(this);
@@ -32,21 +29,26 @@ Pacman::Pacman(Game* game)
 	_AnimSprSheetComp->SetCurrentAnimation("Default");
 	*/
 
+	// Add SpriteComponent to Pacman
+	SpriteComponent* sprComp = new SpriteComponent(this);
+	sprComp->SetClip(game->GetSpriteSheetLib()->GetClip("Assets/PlayerSpriteSheet.png", 0, sprComp));
+
 	/*********************
 	InputComponent Setting
 	**********************/
-	inputComp = new PacmanInputComponent(this);
+	PacmanInputComponent* inputComp = new PacmanInputComponent(this);
 	inputComp->SetUpKey(SDL_SCANCODE_W);
 	inputComp->SetDownKey(SDL_SCANCODE_S);
 	inputComp->SetLeftKey(SDL_SCANCODE_A);
 	inputComp->SetRightKey(SDL_SCANCODE_D);
-
 	inputComp->SetMoveSpeed(6.f);
 
-}
-
-void Pacman::SetCurrentNode(Node* node)
-{
-	inputComp->SetCurrentNode(node);
-	_CurrentNode = node; 
+	// Set Pacman position
+	Node* node = game->GetGraph()->GetNode(1, 6);
+	if (node != nullptr)
+	{
+		Vector2 nodePos = node->GetPos();
+		SetPosition(nodePos);
+		inputComp->SetCurrentNode(node);
+	}
 }
