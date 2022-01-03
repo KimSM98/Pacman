@@ -15,7 +15,7 @@ public:
 	void SetMoveSpeed(float val) { _MoveSpeed = val; }
 	Direction GetDirection() const { return _Direction; }
 	Node* GetCurrentNode() const { return _CurrentNode; }
-
+	bool GetHasReached() const { return hasReachedEnd;	}
 	void MoveToNext();
 	void MoveToPrevious();
 
