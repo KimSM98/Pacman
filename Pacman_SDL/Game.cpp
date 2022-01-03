@@ -293,12 +293,14 @@ void Game::LoadData()
 	//}
 
 	Ghost* ghost = new Ghost(this);
+
 	Node* node = _Graph->GetNode(4, 6);
 	if (node != nullptr) 
 	{
 		ghost->SetPositionByNode(node);
 	}
 
+	ghost->ActiveChaseAI(_Pacman);
 }
 
 void Game::UnloadData()
