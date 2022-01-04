@@ -125,7 +125,6 @@ void GhostAIChase::Update(float deltaTime)
 	Vector2 currentPos = _MoveComp->GetCurrentNode()->GetPos();
 
 	float distance = (targetPos - currentPos).Length();
-	//SDL_Log("d: %f", distance);
 
 	if (distance > 64.f || _TimeSinceCahsing > _MaxChasingTime)
 	{

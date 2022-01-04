@@ -12,4 +12,7 @@ public:
 	void SetCurrentNode(class Node* node);
 	void SetMoveSpeed(float val) { PacmanMoveComponent::SetMoveSpeed(val); }
 private:
+	Actor* _Owner;
+
+	void RotateCharacter(Direction dir);
 };
