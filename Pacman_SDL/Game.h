@@ -31,6 +31,11 @@ public:
 	SDL_Renderer* GetRenderer() { return _Renderer; }
 
 	void AddColliders(class CollisionComponent* colComp);
+
+	std::vector<class Ghost*>& GetGhosts() { return _Ghosts; }
+	void AddGhosts(class Ghost* ghost);
+	void RemoveGhost(class Ghost* ghost);
+
 private:
 	void ProcessInput();
 	void UpdateGame();
@@ -73,4 +78,7 @@ private:
 
 	// Colliders
 	std::vector<class CollisionComponent*> _Colliders;
+
+	// Ghosts
+	std::vector<class Ghost*> _Ghosts;
 };

@@ -3,6 +3,8 @@
 #include "AnimSpriteSheetComponent.h"
 #include "PacmanInputComponent.h"
 #include "Node.h"
+#include "CircleComponent.h"
+#include "Ghost.h"
 
 Pacman::Pacman(Game* game)
 	: Actor(game)
@@ -50,5 +52,21 @@ Pacman::Pacman(Game* game)
 		Vector2 nodePos = node->GetPos();
 		SetPosition(nodePos);
 		inputComp->SetCurrentNode(node);
+	}
+
+	_CircleComp = new CircleComponent(this);
+	game->AddColliders(_CircleComp);
+	_CircleComp->SetRadius(20.f);
+	_CircleComp->SetActiveDrawing(true);
+}
+
+void Pacman::UpdateActor(float deltaTime)
+{
+	for (auto ghost : GetGame()->GetGhosts())
+	{
+		if (Intersect(*_CircleComp, *(ghost->GetCircleComp())))
+		{
+			SDL_Log("Collision!!");
+		}
 	}
 }

@@ -116,6 +116,21 @@ void Game::AddColliders(CollisionComponent* colComp)
 	_Colliders.push_back(colComp);
 }
 
+void Game::AddGhosts(Ghost* ghost)
+{
+	_Ghosts.push_back(ghost);
+}
+
+void Game::RemoveGhost(Ghost* ghost)
+{
+	auto iter = std::find(_Ghosts.begin(),
+		_Ghosts.end(), ghost);
+	if (iter != _Ghosts.end())
+	{
+		_Ghosts.erase(iter);
+	}
+}
+
 // private functions
 void Game::ProcessInput()
 {

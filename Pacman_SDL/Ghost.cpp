@@ -12,16 +12,24 @@ Ghost::Ghost(Game* game)
 	, _MoveComp(nullptr)
 	, _Target(nullptr)
 {
+	// Add to game
+	game->AddGhosts(this);
+
 	game->GetSpriteSheetLib()->LoadSpriteSheet("Assets/Ghost_Red.png", 32);
 
 	SpriteComponent* sprComp = new SpriteComponent(this, 99);
 	sprComp->SetClip(game->GetSpriteSheetLib()->GetClip("Assets/Ghost_Red.png", 7, sprComp));
 
 	// Collider
-	CircleComponent* circleComp = new CircleComponent(this);
-	game->AddColliders(circleComp);
-	circleComp->SetActiveDrawing(true);
-	circleComp->SetRadius(15.f);
+	_CircleComp = new CircleComponent(this);
+	game->AddColliders(_CircleComp);
+	_CircleComp->SetActiveDrawing(true);
+	_CircleComp->SetRadius(15.f);
+}
+
+Ghost::~Ghost()
+{
+	GetGame()->RemoveGhost(this);
 }
 
 void Ghost::UpdateActor(float deltaTime)
@@ -29,6 +37,7 @@ void Ghost::UpdateActor(float deltaTime)
 	// Target이 nullptr이 아니면 Chase 상태를 위해 체크한다.
 	if (_Target != nullptr)
 	{
+		// Compare distance with Target
 		Vector2 targetPos = _Target->GetPosition();
 		Vector2 currentPos = _MoveComp->GetCurrentNode()->GetPos();
 
