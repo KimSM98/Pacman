@@ -8,7 +8,7 @@ public:
 
 	void UpdateActor(float deltaTime) override;
 
-	void SetPositionByNode(class Node* node);
+	void InitByNode(class Node* node);
 	void SetTarget(Actor* target) { _Target = target; }
 	void ActiveChaseAI(Actor* target);
 private:

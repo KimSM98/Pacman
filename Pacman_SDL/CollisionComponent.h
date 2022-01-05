@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "Math.h"
+#include "SDL.h"
 
 class CollisionComponent : public Component
 {
@@ -8,6 +9,11 @@ public:
 	CollisionComponent(class Actor* owner);
 
 	const Vector2& GetPosition() const;
+	
+	void SetActiveDrawing(bool val) { _IsDrawing = val; }
+	virtual void DrawCollider(SDL_Renderer* renderer) {};
+protected:
+	bool _IsDrawing = false;
 };
 
 bool Intersect(const class BoxComponent& a, const class BoxComponent& b);

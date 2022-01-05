@@ -13,6 +13,7 @@
 #include "SpriteSheetLibrary.h"
 #include "Pacman.h"
 #include "Ghost.h"
+#include "CollisionComponent.h"
 
 Game::Game()
 	: _Window(nullptr)
@@ -108,6 +109,11 @@ void Game::RunLoop()
 		UpdateGame();
 		GenerateOutput();
 	}
+}
+
+void Game::AddColliders(CollisionComponent* colComp)
+{
+	_Colliders.push_back(colComp);
 }
 
 // private functions
@@ -206,6 +212,12 @@ void Game::GenerateOutput()
 		sprites->Draw(_Renderer);
 	}
 
+	// Draw Colliders
+	for (auto col : _Colliders)
+	{
+		col->DrawCollider(_Renderer);
+	}	
+
 	SDL_RenderPresent(_Renderer);
 }
 
@@ -297,7 +309,7 @@ void Game::LoadData()
 	Node* node = _Graph->GetNode(4, 6);
 	if (node != nullptr) 
 	{
-		ghost->SetPositionByNode(node);
+		ghost->InitByNode(node);
 	}
 
 	ghost->ActiveChaseAI(_Pacman);

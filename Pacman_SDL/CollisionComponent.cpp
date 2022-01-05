@@ -2,6 +2,8 @@
 #include "Actor.h"
 #include "CircleComponent.h"
 #include "BoxComponent.h"
+#include "Actor.h"
+#include "Game.h"
 
 CollisionComponent::CollisionComponent(Actor* owner)
 	: Component(owner)
@@ -22,7 +24,7 @@ bool Intersect(const BoxComponent& a, const BoxComponent& b)
 		posA.x + a.GetWidth() > posB.x &&
 		posA.y < posB.y + b.GetHeight() &&
 		posA.y + a.GetHeight() > posB.y
-		)
+	)
 	{
 		return true;
 	}

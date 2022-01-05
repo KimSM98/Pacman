@@ -3,6 +3,7 @@
 #include "PacmanInputComponent.h"
 #include "GhostAI.h"
 #include "AIComponent.h"
+#include "CircleComponent.h"
 
 Ghost::Ghost(Game* game)
 	: Actor(game)
@@ -15,6 +16,12 @@ Ghost::Ghost(Game* game)
 
 	SpriteComponent* sprComp = new SpriteComponent(this, 99);
 	sprComp->SetClip(game->GetSpriteSheetLib()->GetClip("Assets/Ghost_Red.png", 7, sprComp));
+
+	// Collider
+	CircleComponent* circleComp = new CircleComponent(this);
+	game->AddColliders(circleComp);
+	circleComp->SetActiveDrawing(true);
+	circleComp->SetRadius(15.f);
 }
 
 void Ghost::UpdateActor(float deltaTime)
@@ -30,13 +37,12 @@ void Ghost::UpdateActor(float deltaTime)
 
 		if (distance < 64.f)
 		{
-			//SDL_Log("FOLLOW PLAYER");
 			_AIComp->ChangeState("Chase");
 		}
 	}
 }
 
-void Ghost::SetPositionByNode(Node* node)
+void Ghost::InitByNode(Node* node)
 {
 	Vector2 nodePos = node->GetPos();
 	_InitialPos = nodePos;

@@ -28,6 +28,9 @@ public:
 
 	Graph* GetGraph() { return _Graph; }
 
+	SDL_Renderer* GetRenderer() { return _Renderer; }
+
+	void AddColliders(class CollisionComponent* colComp);
 private:
 	void ProcessInput();
 	void UpdateGame();
@@ -64,5 +67,10 @@ private:
 
 	// Map
 	class Graph* _Graph;
+
+	// Sprite Sheet Library
 	class SpriteSheetLibrary* _SpriteSheetLib;
+
+	// Colliders
+	std::vector<class CollisionComponent*> _Colliders;
 };
