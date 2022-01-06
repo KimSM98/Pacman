@@ -9,59 +9,54 @@
 Pacman::Pacman(Game* game)
 	: Actor(game)
 {
-	/*
-	_AnimSprSheetComp = new AnimSpriteSheetComponent(this);
-	_AnimSprSheetComp->SetTexture(game->GetTexture("Assets/PlayerSpriteSheet.png"));
-
-	game->GetSpriteSheetLib()->LoadSpriteSheet("Assets/PlayerSpriteSheet.png", 32);
-	//game->GetSpriteSheetLib()->GetSpriteSheetClips("Assets/PlayerSpriteSheet.png");
-	_AnimSprSheetComp->SetAnimClips(game->GetSpriteSheetLib()->GetSpriteSheetClips("Assets/PlayerSpriteSheet.png"));
+	/***********
+	* Animation
+	************/
+	// 애니메이션 컴포넌트 초기화
+	AnimSpriteSheetComponent* animSprSheetComp = new AnimSpriteSheetComponent(this);
+	animSprSheetComp->SetClip(game->GetSpriteSheetLib()->GetClip("Assets/PlayerSpriteSheet.png", 0, animSprSheetComp));
+	animSprSheetComp->SetAnimClips(game->GetSpriteSheetLib()->GetSpriteSheetClips("Assets/PlayerSpriteSheet.png"));
 	
+	// 애니메이션 모음
 	std::map<std::string, AnimSpriteSheetComponent::AnimationStates> animMap;
-
+	// Default 애니메이션
 	AnimSpriteSheetComponent::AnimationStates anim = { 0, 0, true };
-	// Default animation
 	animMap["Default"] = anim;
+	// Run 애니메이션
+	anim = { 0, 2, true };
+	animMap["Run"] = anim;
 
-	// Walking animation
-	anim = { 1,2, false };
-	animMap["Walking"] = anim;
-
-	_AnimSprSheetComp->SetAnimations(animMap);
-	_AnimSprSheetComp->SetCurrentAnimation("Default");
-	*/
-
-	// Add SpriteComponent to Pacman
-	SpriteComponent* sprComp = new SpriteComponent(this);
-	sprComp->SetClip(game->GetSpriteSheetLib()->GetClip("Assets/PlayerSpriteSheet.png", 0, sprComp));
-
+	// 애니메이션 컴포넌트에 애니메이션 모음 추가
+	animSprSheetComp->SetAnimations(animMap);
+	animSprSheetComp->SetCurrentAnimation("Default");
+	animSprSheetComp->SetAnimFPS(12.f);
+	
 	/*********************
 	InputComponent Setting
 	**********************/
-	PacmanInputComponent* inputComp = new PacmanInputComponent(this);
-	inputComp->SetUpKey(SDL_SCANCODE_W);
-	inputComp->SetDownKey(SDL_SCANCODE_S);
-	inputComp->SetLeftKey(SDL_SCANCODE_A);
-	inputComp->SetRightKey(SDL_SCANCODE_D);
-	inputComp->SetMoveSpeed(6.f);
-
-	// Set Pacman position
-	Node* node = game->GetGraph()->GetNode(1, 6);
-	if (node != nullptr)
-	{
-		Vector2 nodePos = node->GetPos();
-		SetPosition(nodePos);
-		inputComp->SetCurrentNode(node);
-	}
-
+	_InputComp = new PacmanInputComponent(this);
+	_InputComp->SetUpKey(SDL_SCANCODE_W);
+	_InputComp->SetDownKey(SDL_SCANCODE_S);
+	_InputComp->SetLeftKey(SDL_SCANCODE_A);
+	_InputComp->SetRightKey(SDL_SCANCODE_D);
+	_InputComp->SetMoveSpeed(6.f);
+	// 입력에 따라 출력할 애니메이션 컴포넌트 설정
+	_InputComp->SetAnimComp(animSprSheetComp);
+		
+	/*********
+	* Collider
+	**********/
 	_CircleComp = new CircleComponent(this);
+	// 게임에 콜라이더 추가. 게임에서 콜라이더를 그리기 위한 작업. Game::GenerateOutput()에서 사용.
 	game->AddColliders(_CircleComp);
+	// 설정
 	_CircleComp->SetRadius(20.f);
 	_CircleComp->SetActiveDrawing(true);
 }
 
 void Pacman::UpdateActor(float deltaTime)
 {
+	// Ghost와의 충돌 판정
 	for (auto ghost : GetGame()->GetGhosts())
 	{
 		if (Intersect(*_CircleComp, *(ghost->GetCircleComp())))
@@ -69,4 +64,14 @@ void Pacman::UpdateActor(float deltaTime)
 			SDL_Log("Collision!!");
 		}
 	}
+}
+
+void Pacman::InitPositionByNode(Node* node)
+{
+	if (node == nullptr) return;
+	
+	Vector2 nodePos = node->GetPos();
+	SetPosition(nodePos);
+
+	_InputComp->SetCurrentNode(node);
 }

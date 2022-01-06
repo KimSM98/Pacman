@@ -238,53 +238,22 @@ void Game::GenerateOutput()
 
 void Game::LoadData()
 {
-	//Actor* act = new Actor(this);
-	//// AIComponent 생성
-	//AIComponent* aic = new AIComponent(act);
-	//// AIComponent에 상태 등록
-	//aic->RegisterState(new AIPatrol(aic));
-	//aic->RegisterState(new AIDeath(aic));
-	//aic->RegisterState(new AIAttack(aic));
-
-	//aic->ChangeState("Patrol");
-
-	//_Ship = new Ship(this);
-	//_Ship->SetPosition(Vector2(300.f, 384.f));
-	//_Ship->SetScale(1.5f);
-
-	//const int numAsteroid = 20;
-	//for (int i = 0; i < numAsteroid; i++)
-	//{
-	//	new Asteroid(this);
-	//}
-	
-	/*_Character = new Character(this);
-	_Character->SetPosition(Vector2(300.f, 384.f));
-	_Character->SetScale(1.5f);*/
-
-	// BG를 만들 위치를 가진 액터 생성
-	Actor* temp = new Actor(this);
-	temp->SetPosition(Vector2(64.f, 0.f));
-
-	/*TileMapComponent* tileMap = new TileMapComponent(temp, 70);
-	SDL_Texture* tileSetTexture = GetTexture("Assets/TileMapSpriteSheet1.png");
-	tileMap->SetTexture(tileSetTexture);
-	tileMap->SetTileSetPixelSize(32);
-	tileMap->SetTileMapStateFromFile("Assets/Maps/Map_1.csv");*/
-	
-
 	/*******************
 	Sprite Sheet Library
 	********************/
 	// Initialize
 	_SpriteSheetLib = new SpriteSheetLibrary(this);
+	
+	// BG를 만들 위치를 가진 액터 생성
+	Actor* temp = new Actor(this);
+	temp->SetPosition(Vector2(64.f, 0.f));
 
 	/**************
 	Tile Map, Graph
 	***************/
 	// Tile Map
 	// Get tile map sprite sheet
-	_SpriteSheetLib->LoadSpriteSheet("Assets/TileMapSpriteSheet1.png", 32); // Texture까지 보내기? tileMap의 setTexture에 접근할 수 있어야 한다.
+	_SpriteSheetLib->LoadSpriteSheet("Assets/TileMapSpriteSheet1.png", 32); 
 
 	TileMapComponent* tileMap = new TileMapComponent(temp, 70);
 	tileMap->SetClips(_SpriteSheetLib->GetSpriteSheetClips("Assets/TileMapSpriteSheet1.png", tileMap));
@@ -304,30 +273,22 @@ void Game::LoadData()
 	// Sprite Sheet Library
 	_SpriteSheetLib->LoadSpriteSheet("Assets/PlayerSpriteSheet.png", 32);
 	
-	// Player
+	// * Player
 	_Pacman = new Pacman(this);
-	//// Add SpriteComponent to Pacman
-	//SpriteComponent* sprComp = new SpriteComponent(_Pacman);
-	//sprComp->SetClip(_SpriteSheetLib->GetClip("Assets/PlayerSpriteSheet.png", 0, sprComp));
+	Node* node = _Graph->GetNode(1, 6);
+	_Pacman->InitPositionByNode(node);
 
-	//// Set Pacman position
-	//Node* node = _Graph->GetNode(1, 6);
-	//if (node != nullptr) 
-	//{
-	//	Vector2 nodePos = node->GetPos();
-	//	_Pacman->SetPosition(nodePos);
-	//	_Pacman->SetCurrentNode(node);
-	//}
-
+	// * Ghost 1 + chase
 	Ghost* ghost = new Ghost(this);
-
-	Node* node = _Graph->GetNode(4, 6);
-	if (node != nullptr) 
-	{
-		ghost->InitByNode(node);
-	}
-
+	node = _Graph->GetNode(4, 6);
+	ghost->InitByNode(node);
+	// Chasing 기능 추가
 	ghost->ActiveChaseAI(_Pacman);
+
+	// * Ghost 2
+	ghost = new Ghost(this);
+	node = _Graph->GetNode(14, 11);
+	ghost->InitByNode(node);
 }
 
 void Game::UnloadData()

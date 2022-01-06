@@ -28,8 +28,6 @@ public:
 
 	Graph* GetGraph() { return _Graph; }
 
-	SDL_Renderer* GetRenderer() { return _Renderer; }
-
 	void AddColliders(class CollisionComponent* colComp);
 
 	std::vector<class Ghost*>& GetGhosts() { return _Ghosts; }

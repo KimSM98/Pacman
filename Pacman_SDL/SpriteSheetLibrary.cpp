@@ -69,6 +69,7 @@ std::vector<SDL_Rect*>* SpriteSheetLibrary::GetSpriteSheetClips(const std::strin
 	return _SpriteSheets[fileName];
 }
 
+// 지워도 됨. 위에꺼로 가능
 //std::vector<SDL_Rect*>* SpriteSheetLibrary::GetSpriteSheetClips(const std::string& fileName, AnimSpriteSheetComponent* animSprSheetComp)
 //{
 //	if (!_SpriteSheets[fileName]) return nullptr;
@@ -91,10 +92,14 @@ SDL_Rect* SpriteSheetLibrary::GetClip(const std::string& fileName, int sprNum, c
 {
 	if (!_SpriteSheets[fileName]) return nullptr;
 
+	// Sprite의 Texture 설정
 	sprComp->SetTexture(_Game->GetTexture(fileName));
+	
+	// 해당 pixel size로 Sprite 사이즈 설정
 	int pixelSize = _SpriteSheetPixelSize[fileName];
 	sprComp->SetHeight(pixelSize);
 	sprComp->SetWidth(pixelSize);
+
 	return _SpriteSheets[fileName]->at(sprNum);
 }
 

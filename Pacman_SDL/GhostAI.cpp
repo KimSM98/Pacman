@@ -18,21 +18,6 @@ void GhostAIPatrol::Update(float deltaTime)
 		SetDirection(next);
 	}
 
-	//// Target이 nullptr이 아니면 Chase 상태를 위해 체크한다.
-	//if (_Target != nullptr)
-	//{
-	//	Vector2 targetPos = _Target->GetPosition();		
-	//	Vector2 currentPos = _MoveComp->GetCurrentNode()->GetPos();
-	//	
-	//	float distance = (targetPos - currentPos).Length();
-	//	SDL_Log("d: %f", distance);
-
-	//	if (distance < 64.f)
-	//	{
-	//		SDL_Log("FOLLOW PLAYER");
-	//	}
-	//}
-	// 
 	//bool dead = true; // 죽었는지 판단
 	//if (dead)
 	//{
@@ -46,7 +31,6 @@ void GhostAIPatrol::OnEnter()
 	// 현재 노드에서 이동 가능한 노드를 찾아서 이동한다.
 	Direction next = GetRandomMovableDirection();
 	SetDirection(next);
-
 }
 
 

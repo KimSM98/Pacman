@@ -1,15 +1,29 @@
 #include "PacmanInputComponent.h"
 #include "Actor.h"
+#include "AnimSpriteSheetComponent.h"
 
 PacmanInputComponent::PacmanInputComponent(Actor* owner)
-	: InputComponent(owner), PacmanMoveComponent(owner), _Owner(owner)
+	: InputComponent(owner), PacmanMoveComponent(owner), _Owner(owner), _OwnerAnimComp(nullptr)
 {
 }
+
 void PacmanInputComponent::ProcessInput(const uint8_t* keyState)
 {
 	Direction moveToDirection = GetDirection();
 
 	RotateCharacter(moveToDirection);
+	
+	if (_OwnerAnimComp != nullptr)
+	{
+		std::string animState;
+
+		if (moveToDirection == Direction::None)
+			animState = "Default";
+		else
+			animState = "Run";
+
+		_OwnerAnimComp->SetCurrentAnimation(animState);
+	}	
 
 	if (keyState[GetRightKey()])
 	{

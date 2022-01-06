@@ -12,15 +12,14 @@ AnimSpriteSheetComponent::AnimSpriteSheetComponent(Actor* owner, int drawOrder)
 void AnimSpriteSheetComponent::Update(float deltaTime)
 {
 	SpriteComponent::Update(deltaTime);
+	
+	if (_Clips == nullptr) return;
 
 	// AnimStatus에서 isRecursive가 true이면 계속 반복, false면 한번만 플레이
 	if (!_Clips->empty())
 	{
 		_CurrentFrame += _AnimFPS * deltaTime;
-		SetClip((*_Clips)[static_cast<int>(_CurrentFrame)]);
-		//SetTexture(_AnimTextures[static_cast<int>(_CurrentFrame)]);
-
-		if (_CurrentFrame > _AnimStatus.end)
+		if (_CurrentFrame > _AnimStatus.end + 0.99f) // 0.99f를 더한 이유는 마지막 프레임이 바로 start로 바뀌기 때문이다.
 		{
 			if (_AnimStatus.isRecursive)
 			{
@@ -31,6 +30,7 @@ void AnimSpriteSheetComponent::Update(float deltaTime)
 				SetCurrentAnimation("Default");
 			}
 		}
+		SetClip((*_Clips)[static_cast<int>(_CurrentFrame)]);
 	}
 }
 
@@ -40,6 +40,7 @@ void AnimSpriteSheetComponent::SetAnimClips(std::vector<SDL_Rect*>* clips)
 
 	if (!_Clips->empty())
 	{
+		// Default
 		SetClip((*_Clips)[0]);
 	}
 }

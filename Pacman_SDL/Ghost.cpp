@@ -4,6 +4,7 @@
 #include "GhostAI.h"
 #include "AIComponent.h"
 #include "CircleComponent.h"
+#include "AnimSpriteSheetComponent.h"
 
 Ghost::Ghost(Game* game)
 	: Actor(game)
@@ -15,10 +16,23 @@ Ghost::Ghost(Game* game)
 	// Add to game
 	game->AddGhosts(this);
 
+	// Asset폴더에서 스프라이트 시트 불러오기
 	game->GetSpriteSheetLib()->LoadSpriteSheet("Assets/Ghost_Red.png", 32);
 
-	SpriteComponent* sprComp = new SpriteComponent(this, 99);
-	sprComp->SetClip(game->GetSpriteSheetLib()->GetClip("Assets/Ghost_Red.png", 7, sprComp));
+	// 애니메이션 컴포넌트 초기화
+	AnimSpriteSheetComponent* animSprSheetComp = new AnimSpriteSheetComponent(this);
+	animSprSheetComp->SetClip(game->GetSpriteSheetLib()->GetClip("Assets/Ghost_Red.png", 0, animSprSheetComp));
+	animSprSheetComp->SetAnimClips(game->GetSpriteSheetLib()->GetSpriteSheetClips("Assets/Ghost_Red.png"));
+	
+	// 애니메이션 설정
+	std::map<std::string, AnimSpriteSheetComponent::AnimationStates> animMap;
+	AnimSpriteSheetComponent::AnimationStates anim = { 0, 7, true };
+	animMap["Default"] = anim;
+
+	// 애니메이션 컴포넌트에 애니메이션 추가
+	animSprSheetComp->SetAnimations(animMap);
+	animSprSheetComp->SetCurrentAnimation("Default");
+	animSprSheetComp->SetAnimFPS(8.f);
 
 	// Collider
 	_CircleComp = new CircleComponent(this);
@@ -42,9 +56,8 @@ void Ghost::UpdateActor(float deltaTime)
 		Vector2 currentPos = _MoveComp->GetCurrentNode()->GetPos();
 
 		float distance = (targetPos - currentPos).Length();
-		//SDL_Log("d: %f", distance);
 
-		if (distance < 64.f)
+		if (distance < 96.f)
 		{
 			_AIComp->ChangeState("Chase");
 		}
@@ -53,19 +66,24 @@ void Ghost::UpdateActor(float deltaTime)
 
 void Ghost::InitByNode(Node* node)
 {
+	if (node == nullptr) return;
+
 	Vector2 nodePos = node->GetPos();
 	_InitialPos = nodePos;
 	SetPosition(nodePos);
 	
+	// MoveComponent
 	_MoveComp = new PacmanMoveComponent(this);
 	_MoveComp->SetCurrentNode(node);
 	_MoveComp->SetMoveSpeed(5.5f);
 
 	// AI Component
 	_AIComp = new AIComponent(this);
+
 	// Patrol AI
 	GhostAIPatrol* patrolAI = new GhostAIPatrol(_AIComp);
 	patrolAI->SetPacmanMoveComponent(_MoveComp);
+	
 	// AI 등록
 	_AIComp->RegisterState(patrolAI);
 	_AIComp->ChangeState("Patrol");

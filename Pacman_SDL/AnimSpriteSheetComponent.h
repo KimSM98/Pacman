@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 
-class AnimSpriteSheetComponent : SpriteComponent
+class AnimSpriteSheetComponent : public SpriteComponent
 {
 public:
 	struct AnimationStates

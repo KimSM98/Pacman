@@ -9,7 +9,9 @@ public:
 	void UpdateActor(float deltaTime) override;
 
 	class CircleComponent* GetCollider() { return _CircleComp; }
+
+	void InitPositionByNode(class Node* node);
 private:
-	/*class AnimSpriteSheetComponent* _AnimSprSheetComp;*/
+	class PacmanInputComponent* _InputComp;
 	class CircleComponent* _CircleComp;
 };
