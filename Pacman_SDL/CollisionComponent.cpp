@@ -10,6 +10,11 @@ CollisionComponent::CollisionComponent(Actor* owner)
 {
 }
 
+CollisionComponent::~CollisionComponent()
+{
+	_Owner->GetGame()->RemoveCollider(this);
+}
+
 const Vector2& CollisionComponent::GetPosition() const
 {
 	return _Owner->GetPosition();

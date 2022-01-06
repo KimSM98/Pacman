@@ -61,7 +61,7 @@ void Pacman::UpdateActor(float deltaTime)
 	{
 		if (Intersect(*_CircleComp, *(ghost->GetCircleComp())))
 		{
-			SDL_Log("Collision!!");
+			// 충돌 했을 때 실행할 내용
 		}
 	}
 }

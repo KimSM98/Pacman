@@ -7,11 +7,13 @@ class CollisionComponent : public Component
 {
 public:
 	CollisionComponent(class Actor* owner);
+	~CollisionComponent();
 
 	const Vector2& GetPosition() const;
 	
 	void SetActiveDrawing(bool val) { _IsDrawing = val; }
 	virtual void DrawCollider(SDL_Renderer* renderer) {};
+
 protected:
 	bool _IsDrawing = false;
 };

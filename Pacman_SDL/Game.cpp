@@ -4,9 +4,6 @@
 #include "SpriteComponent.h"
 #include "BGSpriteComponent.h"
 #include "TileMapComponent.h"
-#include "Ship.h"
-#include "Character.h"
-#include "Asteroid.h"
 #include "AIComponent.h"
 #include "AIState.h"
 #include "Graph.h"
@@ -40,7 +37,7 @@ bool Game::Initialize()
 	}
 
 	_Window = SDL_CreateWindow(
-		"Game Programming",
+		"Pacman - Kim So-Min",
 		100,
 		50,
 		_WindowWidth,
@@ -79,21 +76,6 @@ bool Game::Initialize()
 	return true;
 }
 
-void Game::AddAsteroid(Asteroid* ast)
-{
-	_Asteroids.emplace_back(ast);
-}
-
-void Game::RemoveAsteroid(Asteroid* ast)
-{
-	auto iter = std::find(_Asteroids.begin(),
-		_Asteroids.end(), ast);
-	if (iter != _Asteroids.end())
-	{
-		_Asteroids.erase(iter);
-	}
-}
-
 void Game::Shutdown()
 {
 	SDL_DestroyWindow(_Window);
@@ -114,6 +96,16 @@ void Game::RunLoop()
 void Game::AddColliders(CollisionComponent* colComp)
 {
 	_Colliders.push_back(colComp);
+}
+
+void Game::RemoveCollider(CollisionComponent* colComp)
+{
+	auto iter = std::find(_Colliders.begin(),
+		_Colliders.end(), colComp);
+	if (iter != _Colliders.end())
+	{
+		_Colliders.erase(iter);
+	}
 }
 
 void Game::AddGhosts(Ghost* ghost)
@@ -160,10 +152,6 @@ void Game::ProcessInput()
 		actor->ProcessInput(state);
 	}
 	_IsUpdatingActors = false;
-
-	// Character input
-	//_Character->ProcessKeyboard(state);
-	//_Pacman->ProcessKeyboard(state);
 }
 
 void Game::UpdateGame()
@@ -251,8 +239,8 @@ void Game::LoadData()
 	/**************
 	Tile Map, Graph
 	***************/
-	// Tile Map
-	// Get tile map sprite sheet
+	// * Tile Map
+	// Load tile map sprite sheet
 	_SpriteSheetLib->LoadSpriteSheet("Assets/TileMapSpriteSheet1.png", 32); 
 
 	TileMapComponent* tileMap = new TileMapComponent(temp, 70);

@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include "SpriteSheetLibrary.h"
 #include "Graph.h"
+
 class Game
 {
 public:
@@ -22,13 +23,10 @@ public:
 	SDL_Texture* GetTexture(const std::string& fileName);
 	SpriteSheetLibrary* GetSpriteSheetLib() { return _SpriteSheetLib; }
 
-	void AddAsteroid(class Asteroid* ast);
-	void RemoveAsteroid(class Asteroid* ast);
-	std::vector<class Asteroid*>& GetAsteroids() { return _Asteroids; }
-
 	Graph* GetGraph() { return _Graph; }
 
 	void AddColliders(class CollisionComponent* colComp);
+	void RemoveCollider(class CollisionComponent* colComp);
 
 	std::vector<class Ghost*>& GetGhosts() { return _Ghosts; }
 	void AddGhosts(class Ghost* ghost);
@@ -60,11 +58,6 @@ private:
 
 	// Sprites
 	std::vector<class SpriteComponent*> _Sprites;
-
-	// Game specific
-	class Character* _Character;
-	class Ship* _Ship;
-	std::vector<class Asteroid*> _Asteroids;
 
 	class Pacman* _Pacman;
 
