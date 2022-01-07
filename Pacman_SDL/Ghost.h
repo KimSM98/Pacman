@@ -14,12 +14,39 @@ public:
 	void ActiveChaseAI(Actor* target);
 
 	class CircleComponent* GetCircleComp() { return _CircleComp; }
-private:
+
+protected:
 	class AnimSpriteSheetComponent* _AnimSprSheetComp;
+
+private:
 	class AIComponent* _AIComp;
 	class PacmanMoveComponent* _MoveComp;
 	class CircleComponent* _CircleComp;
 
 	Vector2 _InitialPos;
 	Actor* _Target;
+};
+
+class GhostRed : public Ghost
+{
+public:
+	GhostRed(class Game* game);
+};
+
+class GhostBlue : public Ghost
+{
+public:
+	GhostBlue(class Game* game);
+};
+
+class GhostPink : public Ghost
+{
+public:
+	GhostPink(class Game* game);
+};
+
+class GhostOrange : public Ghost
+{
+public:
+	GhostOrange(class Game* game);
 };

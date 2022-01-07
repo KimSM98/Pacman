@@ -273,68 +273,29 @@ void Game::LoadData()
 	_SpriteSheetLib->LoadSpriteSheet("Assets/Ghosts.png", 32);
 
 	// * Ghost 1 + chase
-	Ghost* ghost = new Ghost(this);
+	Ghost* ghost = new GhostRed(this);
 	node = _Graph->GetNode(14, 13);
 	ghost->InitByNode(node);
 	// Chasing 기능 추가
 	ghost->ActiveChaseAI(_Pacman);
-
-	// Ghost 1 - 애니메이션 컴포넌트 초기화
-	AnimSpriteSheetComponent* animSprSheetComp = new AnimSpriteSheetComponent(ghost);
-	animSprSheetComp->SetClip(GetSpriteSheetLib()->GetClip("Assets/Ghosts.png", 0, animSprSheetComp));
-	animSprSheetComp->SetAnimClips(GetSpriteSheetLib()->GetSpriteSheetClips("Assets/Ghosts.png"));
-
-	// 애니메이션 설정
-	std::map<std::string, AnimSpriteSheetComponent::AnimationStates> animMap;
-	AnimSpriteSheetComponent::AnimationStates anim = { 0, 7, true };
-	animMap["Default"] = anim;
-
-	// 애니메이션 컴포넌트에 애니메이션 추가
-	animSprSheetComp->SetAnimations(animMap);
-	animSprSheetComp->SetCurrentAnimation("Default");
-	animSprSheetComp->SetAnimFPS(8.f);
 	// End of Ghost 1
 
 	// * Ghost 2
-	ghost = new Ghost(this);
+	ghost = new GhostBlue(this);
 	node = _Graph->GetNode(14, 11);
 	ghost->InitByNode(node);
-
-	// Ghost 2 - Animation
-	animSprSheetComp = new AnimSpriteSheetComponent(ghost);
-	animSprSheetComp->SetClip(GetSpriteSheetLib()->GetClip("Assets/Ghosts.png", 0, animSprSheetComp));
-	animSprSheetComp->SetAnimClips(GetSpriteSheetLib()->GetSpriteSheetClips("Assets/Ghosts.png"));
-
-	// 애니메이션 설정
-	anim = { 8, 13, true };
-	animMap["Default"] = anim;
-
-	// 애니메이션 컴포넌트에 애니메이션 추가
-	animSprSheetComp->SetAnimations(animMap);
-	animSprSheetComp->SetCurrentAnimation("Default");
-	animSprSheetComp->SetAnimFPS(8.f);
-	// End of Ghost 2 
-	
+		
 	// * Ghost 3
-	ghost = new Ghost(this);
+	ghost = new GhostPink(this);
 	node = _Graph->GetNode(14, 12);
 	ghost->InitByNode(node);
-
-	// Ghost 3 - Animation
-	animSprSheetComp = new AnimSpriteSheetComponent(ghost);
-	animSprSheetComp->SetClip(GetSpriteSheetLib()->GetClip("Assets/Ghosts.png", 0, animSprSheetComp));
-	animSprSheetComp->SetAnimClips(GetSpriteSheetLib()->GetSpriteSheetClips("Assets/Ghosts.png"));
-
-	// 애니메이션 설정
-	anim = { 8, 13, true };
-	animMap["Default"] = anim;
-
-	// 애니메이션 컴포넌트에 애니메이션 추가
-	animSprSheetComp->SetAnimations(animMap);
-	animSprSheetComp->SetCurrentAnimation("Default");
-	animSprSheetComp->SetAnimFPS(8.f);
 	// End of Ghost 3 
-
+	
+	// * Ghost 4
+	ghost = new GhostOrange(this);
+	node = _Graph->GetNode(14, 14);
+	ghost->InitByNode(node);
+	// End of Ghost 4 
 }
 
 void Game::UnloadData()

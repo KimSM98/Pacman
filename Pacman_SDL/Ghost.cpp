@@ -16,29 +16,17 @@ Ghost::Ghost(Game* game)
 	// Add to game
 	game->AddGhosts(this);
 
-	//// Asset폴더에서 스프라이트 시트 불러오기
-	//game->GetSpriteSheetLib()->LoadSpriteSheet("Assets/Ghost_Red.png", 32);
-
-	//// 애니메이션 컴포넌트 초기화
-	//AnimSpriteSheetComponent* animSprSheetComp = new AnimSpriteSheetComponent(this);
-	//animSprSheetComp->SetClip(game->GetSpriteSheetLib()->GetClip("Assets/Ghost_Red.png", 0, animSprSheetComp));
-	//animSprSheetComp->SetAnimClips(game->GetSpriteSheetLib()->GetSpriteSheetClips("Assets/Ghost_Red.png"));
-	//
-	//// 애니메이션 설정
-	//std::map<std::string, AnimSpriteSheetComponent::AnimationStates> animMap;
-	//AnimSpriteSheetComponent::AnimationStates anim = { 0, 7, true };
-	//animMap["Default"] = anim;
-
-	//// 애니메이션 컴포넌트에 애니메이션 추가
-	//animSprSheetComp->SetAnimations(animMap);
-	//animSprSheetComp->SetCurrentAnimation("Default");
-	//animSprSheetComp->SetAnimFPS(8.f);
-
 	// Collider
 	_CircleComp = new CircleComponent(this);
 	game->AddColliders(_CircleComp);
 	_CircleComp->SetActiveDrawing(true);
 	_CircleComp->SetRadius(15.f);
+
+	// Animation
+	_AnimSprSheetComp = new AnimSpriteSheetComponent(this);
+	_AnimSprSheetComp->SetClip(game->GetSpriteSheetLib()->GetClip("Assets/Ghosts.png", 0, _AnimSprSheetComp));
+	_AnimSprSheetComp->SetAnimClips(game->GetSpriteSheetLib()->GetSpriteSheetClips("Assets/Ghosts.png"));
+	_AnimSprSheetComp->SetAnimFPS(8.f);
 }
 
 Ghost::~Ghost()
@@ -97,4 +85,56 @@ void Ghost::ActiveChaseAI(Actor* target)
 	chaseAI->SetPacmanMoveComponent(_MoveComp);
 
 	_AIComp->RegisterState(chaseAI);
+}
+
+GhostRed::GhostRed(Game* game)
+	: Ghost(game)
+{
+	// 애니메이션 설정
+	std::map<std::string, AnimSpriteSheetComponent::AnimationStates> animMap;
+	AnimSpriteSheetComponent::AnimationStates anim = { 0, 7, true };
+	animMap["Default"] = anim;
+
+	// 애니메이션 컴포넌트에 애니메이션 추가
+	_AnimSprSheetComp->SetAnimations(animMap);
+	_AnimSprSheetComp->SetCurrentAnimation("Default");
+}
+
+GhostBlue::GhostBlue(Game* game)
+	: Ghost(game)
+{
+	// 애니메이션 설정
+	std::map<std::string, AnimSpriteSheetComponent::AnimationStates> animMap;
+	AnimSpriteSheetComponent::AnimationStates anim = { 8, 15, true };
+	animMap["Default"] = anim;
+
+	// 애니메이션 컴포넌트에 애니메이션 추가
+	_AnimSprSheetComp->SetAnimations(animMap);
+	_AnimSprSheetComp->SetCurrentAnimation("Default");
+}
+
+GhostPink::GhostPink(Game* game)
+	: Ghost(game)
+{
+	// 애니메이션 설정
+	std::map<std::string, AnimSpriteSheetComponent::AnimationStates> animMap;
+	AnimSpriteSheetComponent::AnimationStates anim = { 16, 23, true };
+	animMap["Default"] = anim;
+
+	// 애니메이션 컴포넌트에 애니메이션 추가
+	_AnimSprSheetComp->SetAnimations(animMap);
+	_AnimSprSheetComp->SetCurrentAnimation("Default");
+}
+
+GhostOrange::GhostOrange(Game* game)
+	: Ghost(game)
+{
+	// 애니메이션 설정
+	std::map<std::string, AnimSpriteSheetComponent::AnimationStates> animMap;
+	AnimSpriteSheetComponent::AnimationStates anim = { 24, 31, true };
+	animMap["Default"] = anim;
+
+	// 애니메이션 컴포넌트에 애니메이션 추가
+	_AnimSprSheetComp->SetAnimations(animMap);
+	_AnimSprSheetComp->SetCurrentAnimation("Default");
 }
