@@ -1,5 +1,6 @@
 #pragma once
 #include "Actor.h"
+#include "AnimSpriteSheetComponent.h"
 
 class Ghost : public Actor
 {
@@ -17,14 +18,17 @@ public:
 
 protected:
 	class AnimSpriteSheetComponent* _AnimSprSheetComp;
+	std::map<std::string, AnimSpriteSheetComponent::AnimationStates> _AnimMap;
 
 private:
 	class AIComponent* _AIComp;
 	class PacmanMoveComponent* _MoveComp;
 	class CircleComponent* _CircleComp;
 
-	Vector2 _InitialPos;
+	//Vector2 _InitialPos;
 	Actor* _Target;
+
+	bool IsChasing = false;
 };
 
 class GhostRed : public Ghost

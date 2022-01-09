@@ -6,8 +6,9 @@
 
 PacmanMoveComponent::PacmanMoveComponent(Actor* owner, int updateOrder)
 	: MoveComponent(owner)
+	, _Owner(owner)
 {
-	_Owner = owner;
+	//_Owner = owner;
 }
 
 void PacmanMoveComponent::Update(float deltaTime) 
@@ -41,6 +42,11 @@ bool PacmanMoveComponent::SetNextNode(Direction d)
 	_NextNode = node;
 
 	return true;
+}
+
+void PacmanMoveComponent::SetPosition(Vector2 pos)
+{
+	_Owner->SetPosition(pos);
 }
 
 Node* PacmanMoveComponent::FindNode(Direction d) // from PacmanInputComponent
@@ -90,7 +96,7 @@ void PacmanMoveComponent::Move(float deltaTime)
 
 	Vector2 pos;
 	pos = lerp(startPos, destPos, t);
-	_Owner->SetPosition(pos);
+	SetPosition(pos);
 }
 
 Vector2 PacmanMoveComponent::lerp(Vector2 currecntPos, Vector2 destPos, float t)

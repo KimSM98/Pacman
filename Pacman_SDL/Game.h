@@ -32,6 +32,8 @@ public:
 	void AddGhosts(class Ghost* ghost);
 	void RemoveGhost(class Ghost* ghost);
 
+	class Pacman* GetPacman() { return _Pacman; }
+
 private:
 	void ProcessInput();
 	void UpdateGame();

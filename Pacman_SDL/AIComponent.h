@@ -9,9 +9,10 @@ public:
 
 	void Update(float deltaTime) override;
 	void ChangeState(const std::string& name);
-
 	// AIState를 맵에 추가한다.
 	void RegisterState(class AIState* state);
+	
+	std::string GetCurrecntState();
 private:
 	// 상태의 이름, AIState 객체를 매핑
 	std::unordered_map<std::string, class AIState*> _StateMap;

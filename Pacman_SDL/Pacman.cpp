@@ -57,13 +57,13 @@ Pacman::Pacman(Game* game)
 void Pacman::UpdateActor(float deltaTime)
 {
 	// Ghost와의 충돌 판정
-	for (auto ghost : GetGame()->GetGhosts())
-	{
-		if (Intersect(*_CircleComp, *(ghost->GetCircleComp())))
-		{
-			// 충돌 했을 때 실행할 내용
-		}
-	}
+	//for (auto ghost : GetGame()->GetGhosts())
+	//{
+	//	if (Intersect(*_CircleComp, *(ghost->GetCircleComp())))
+	//	{
+	//		// 충돌 했을 때 실행할 내용
+	//	}
+	//}
 }
 
 void Pacman::InitPositionByNode(Node* node)

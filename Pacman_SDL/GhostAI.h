@@ -33,7 +33,6 @@ public:
 
 private:
 	Direction GetRandomMovableDirection();
-	/*void SetDirection(Direction dir);*/
 };
 
 class GhostAIDeath : public GhostAIState
@@ -50,6 +49,14 @@ public:
 	{
 		return "Death";
 	}
+
+	void SetInitNode(Node* node) { _InitNode = node; }
+	void SetAnimComp(class AnimSpriteSheetComponent* animComp);
+private:
+	float t = 0.f;
+	Node* _InitNode; // MoveComponent로 전달해야 하기 때문에 포인터로
+	Vector2 _DeadPos;	
+	class AnimSpriteSheetComponent* _AnimComp;
 };
 
 class GhostAIChase : public GhostAIState
@@ -68,9 +75,10 @@ public:
 	}
 
 private:
+	Direction GetCloseNodeToTarget();
+	
 	class Actor* _Target;
 
-	Direction GetCloseNodeToTarget();
 	float _MaxChasingTime = 2.f;
 	float _TimeSinceCahsing = 0.f;
 };

@@ -5,6 +5,7 @@
 #include "AIComponent.h"
 #include "CircleComponent.h"
 #include "AnimSpriteSheetComponent.h"
+#include "Pacman.h"
 
 Ghost::Ghost(Game* game)
 	: Actor(game)
@@ -27,6 +28,9 @@ Ghost::Ghost(Game* game)
 	_AnimSprSheetComp->SetClip(game->GetSpriteSheetLib()->GetClip("Assets/Ghosts.png", 0, _AnimSprSheetComp));
 	_AnimSprSheetComp->SetAnimClips(game->GetSpriteSheetLib()->GetSpriteSheetClips("Assets/Ghosts.png"));
 	_AnimSprSheetComp->SetAnimFPS(8.f);
+
+	AnimSpriteSheetComponent::AnimationStates anim = { 32, 39, true };
+	_AnimMap["Death"] = anim;
 }
 
 Ghost::~Ghost()
@@ -36,13 +40,12 @@ Ghost::~Ghost()
 
 void Ghost::UpdateActor(float deltaTime)
 {
-	// Target이 nullptr이 아니면 Chase 상태를 위해 체크한다.
-	if (_Target != nullptr)
-	{
-		// Compare distance with Target
-		Vector2 targetPos = _Target->GetPosition();
-		Vector2 currentPos = _MoveComp->GetCurrentNode()->GetPos();
+	Pacman* pacman = GetGame()->GetPacman();
 
+	if (IsChasing && _AIComp->GetCurrecntState() == "Patrol")
+	{
+		Vector2 targetPos = pacman->GetPosition();
+		Vector2 currentPos = _MoveComp->GetCurrentNode()->GetPos();
 		float distance = (targetPos - currentPos).Length();
 
 		if (distance < 96.f)
@@ -50,6 +53,26 @@ void Ghost::UpdateActor(float deltaTime)
 			_AIComp->ChangeState("Chase");
 		}
 	}
+
+	if (Intersect(*_CircleComp, *pacman->GetCollider()))
+	{
+		_AIComp->ChangeState("Death");
+	}
+
+	// Target이 nullptr이 아니면 Chase 상태를 위해 체크한다.
+	//if (_Target != nullptr)
+	//{
+	//	// Compare distance with Target
+	//	Vector2 targetPos = _Target->GetPosition();
+	//	Vector2 currentPos = _MoveComp->GetCurrentNode()->GetPos();
+
+	//	float distance = (targetPos - currentPos).Length();
+
+	//	if (distance < 96.f)
+	//	{
+	//		_AIComp->ChangeState("Chase");
+	//	}
+	//}
 }
 
 void Ghost::InitByNode(Node* node)
@@ -57,7 +80,6 @@ void Ghost::InitByNode(Node* node)
 	if (node == nullptr) return;
 
 	Vector2 nodePos = node->GetPos();
-	_InitialPos = nodePos;
 	SetPosition(nodePos);
 	
 	// MoveComponent
@@ -75,10 +97,20 @@ void Ghost::InitByNode(Node* node)
 	// AI 등록
 	_AIComp->RegisterState(patrolAI);
 	_AIComp->ChangeState("Patrol");
+
+	// Death AI
+	GhostAIDeath* DeathAI = new GhostAIDeath(_AIComp);
+	DeathAI->SetPacmanMoveComponent(_MoveComp);
+	DeathAI->SetInitNode(node);
+	DeathAI->SetAnimComp(_AnimSprSheetComp);
+
+	_AIComp->RegisterState(DeathAI);
 }
 
 void Ghost::ActiveChaseAI(Actor* target)
 {
+	IsChasing = true;
+
 	_Target = target;
 
 	GhostAIChase* chaseAI = new GhostAIChase(_AIComp, _Target);
@@ -90,26 +122,22 @@ void Ghost::ActiveChaseAI(Actor* target)
 GhostRed::GhostRed(Game* game)
 	: Ghost(game)
 {
-	// 애니메이션 설정
-	std::map<std::string, AnimSpriteSheetComponent::AnimationStates> animMap;
+	//// 애니메이션 설정
 	AnimSpriteSheetComponent::AnimationStates anim = { 0, 7, true };
-	animMap["Default"] = anim;
-
+	_AnimMap["Default"] = anim;
 	// 애니메이션 컴포넌트에 애니메이션 추가
-	_AnimSprSheetComp->SetAnimations(animMap);
+	_AnimSprSheetComp->SetAnimations(_AnimMap);
 	_AnimSprSheetComp->SetCurrentAnimation("Default");
 }
 
 GhostBlue::GhostBlue(Game* game)
 	: Ghost(game)
 {
-	// 애니메이션 설정
-	std::map<std::string, AnimSpriteSheetComponent::AnimationStates> animMap;
+	//// 애니메이션 설정
 	AnimSpriteSheetComponent::AnimationStates anim = { 8, 15, true };
-	animMap["Default"] = anim;
-
+	_AnimMap["Default"] = anim;
 	// 애니메이션 컴포넌트에 애니메이션 추가
-	_AnimSprSheetComp->SetAnimations(animMap);
+	_AnimSprSheetComp->SetAnimations(_AnimMap);
 	_AnimSprSheetComp->SetCurrentAnimation("Default");
 }
 
@@ -117,12 +145,10 @@ GhostPink::GhostPink(Game* game)
 	: Ghost(game)
 {
 	// 애니메이션 설정
-	std::map<std::string, AnimSpriteSheetComponent::AnimationStates> animMap;
 	AnimSpriteSheetComponent::AnimationStates anim = { 16, 23, true };
-	animMap["Default"] = anim;
-
+	_AnimMap["Default"] = anim;
 	// 애니메이션 컴포넌트에 애니메이션 추가
-	_AnimSprSheetComp->SetAnimations(animMap);
+	_AnimSprSheetComp->SetAnimations(_AnimMap);
 	_AnimSprSheetComp->SetCurrentAnimation("Default");
 }
 
@@ -130,11 +156,9 @@ GhostOrange::GhostOrange(Game* game)
 	: Ghost(game)
 {
 	// 애니메이션 설정
-	std::map<std::string, AnimSpriteSheetComponent::AnimationStates> animMap;
 	AnimSpriteSheetComponent::AnimationStates anim = { 24, 31, true };
-	animMap["Default"] = anim;
-
+	_AnimMap["Default"] = anim;
 	// 애니메이션 컴포넌트에 애니메이션 추가
-	_AnimSprSheetComp->SetAnimations(animMap);
+	_AnimSprSheetComp->SetAnimations(_AnimMap);
 	_AnimSprSheetComp->SetCurrentAnimation("Default");
 }

@@ -3,7 +3,10 @@
 #include "AnimSpriteSheetComponent.h"
 
 PacmanInputComponent::PacmanInputComponent(Actor* owner)
-	: InputComponent(owner), PacmanMoveComponent(owner), _Owner(owner), _OwnerAnimComp(nullptr)
+	: InputComponent(owner)
+	, PacmanMoveComponent(owner)
+	, _Owner(owner)
+	, _OwnerAnimComp(nullptr)
 {
 }
 

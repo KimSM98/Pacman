@@ -12,6 +12,11 @@ void AIComponent::RegisterState(AIState* state)
 	_StateMap.emplace(state->GetName(), state);
 }
 
+std::string AIComponent::GetCurrecntState()
+{
+	return _CurrentState->GetName();
+}
+
 void AIComponent::Update(float deltaTime)
 {
 	if (_CurrentState)

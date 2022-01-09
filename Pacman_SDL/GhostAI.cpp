@@ -2,6 +2,7 @@
 #include "AIComponent.h"
 #include <time.h>
 #include "Actor.h"
+#include "AnimSpriteSheetComponent.h"
 
 void GhostAIState::SetDirection(Direction dir)
 {
@@ -17,13 +18,6 @@ void GhostAIPatrol::Update(float deltaTime)
 		Direction next = GetRandomMovableDirection();
 		SetDirection(next);
 	}
-
-	//bool dead = true; // 죽었는지 판단
-	//if (dead)
-	//{
-	//	// AI 컴포넌트에 상태를 변경하라고 알림
-	//	_Owner->ChangeState("Death");
-	//}
 }
 
 void GhostAIPatrol::OnEnter()
@@ -32,7 +26,6 @@ void GhostAIPatrol::OnEnter()
 	Direction next = GetRandomMovableDirection();
 	SetDirection(next);
 }
-
 
 Direction GhostAIPatrol::GetRandomMovableDirection()
 {
@@ -87,19 +80,37 @@ void GhostAIPatrol::OnExit()
 
 void GhostAIDeath::Update(float deltaTime)
 {
-	// Update 작업
+	t += deltaTime;
 
-	// 죽으면 초기 위치로 돌아간다.
+	// 1이 넘으면 Patrol로 변경
+	if (t > 1.f)
+	{
+		_Owner->ChangeState("Patrol");
+		return;
+	}
+
+	// 초기 위치로 돌아간다.
+	Vector2 pos = _MoveComp->lerp(_DeadPos, _InitNode->GetPos(), t);
+	_MoveComp->SetPosition(pos);
 }
 
 void GhostAIDeath::OnEnter()
 {
-	
+	t = 0.f;
+	_DeadPos = _MoveComp->GetCurrentPos(); 
+	_MoveComp->InitializeDirection();
+	_AnimComp->SetCurrentAnimation("Death");
 }
 
 void GhostAIDeath::OnExit()
 {
+	_MoveComp->SetCurrentNode(_InitNode);
+	_AnimComp->SetCurrentAnimation("Default");
+}
 
+void GhostAIDeath::SetAnimComp(AnimSpriteSheetComponent* animComp)
+{
+	_AnimComp = animComp;
 }
 
 void GhostAIChase::Update(float deltaTime)
