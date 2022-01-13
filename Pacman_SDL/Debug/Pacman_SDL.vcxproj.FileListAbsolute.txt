@@ -1,2 +1,1 @@
-C:\Users\KSM\source\repos\Pacman_SDL\Debug\Pacman_SDL.exe
 C:\Users\KSM\Desktop\Project\Pacman\Pacman\Pacman_SDL\Debug\Pacman_SDL.exe

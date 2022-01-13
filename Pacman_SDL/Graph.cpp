@@ -109,7 +109,7 @@ int Graph::SetGraphStateFromFile(std::string fileName)
 
 		_Nodes.push_back(vec);
 	}
-	std::cout << "Graph 생성 완료\n";
+	SDL_Log("Graph creation completed.");
 
 	ArrangeAdjNodes();
 

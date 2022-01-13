@@ -52,6 +52,7 @@ public:
 
 	void SetInitNode(Node* node) { _InitNode = node; }
 	void SetAnimComp(class AnimSpriteSheetComponent* animComp);
+
 private:
 	float t = 0.f;
 	Node* _InitNode; // MoveComponent로 전달해야 하기 때문에 포인터로
@@ -74,11 +75,15 @@ public:
 		return "Chase";
 	}
 
+	void SetChaseDistance(float distance) { _ChaseDistance = distance; }
+	void SetMaxChasingTime(float time) { _MaxChasingTime = time; }
+
 private:
 	Direction GetCloseNodeToTarget();
 	
 	class Actor* _Target;
 
+	float _ChaseDistance = 96.f;
 	float _MaxChasingTime = 2.f;
 	float _TimeSinceCahsing = 0.f;
 };

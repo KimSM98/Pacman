@@ -6,8 +6,6 @@ class Pacman : public Actor
 public:
 	Pacman(class Game* game);
 
-	void UpdateActor(float deltaTime) override;
-
 	class CircleComponent* GetCollider() { return _CircleComp; }
 
 	void InitPositionByNode(class Node* node);

@@ -25,9 +25,10 @@ public:
 
 	Graph* GetGraph() { return _Graph; }
 
-	void AddColliders(class CollisionComponent* colComp);
+	void AddCollider(class CollisionComponent* colComp);
 	void RemoveCollider(class CollisionComponent* colComp);
 
+	// Pacman Game Function
 	std::vector<class Ghost*>& GetGhosts() { return _Ghosts; }
 	void AddGhosts(class Ghost* ghost);
 	void RemoveGhost(class Ghost* ghost);

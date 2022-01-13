@@ -8,6 +8,8 @@
 CollisionComponent::CollisionComponent(Actor* owner)
 	: Component(owner)
 {
+	// 게임에 콜라이더 추가. 게임에서 콜라이더를 그리기 위한 작업. Game::GenerateOutput()에서 사용.
+	owner->GetGame()->AddCollider(this);
 }
 
 CollisionComponent::~CollisionComponent()

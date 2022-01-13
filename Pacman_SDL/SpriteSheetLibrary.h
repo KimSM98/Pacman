@@ -11,10 +11,12 @@ public:
 
 	void LoadSpriteSheet(const std::string& fileName, int pixelSize);
 
+	// SpriteSheet의 모든 Clip들을 반환한다.
 	std::vector<SDL_Rect*>* GetSpriteSheetClips(const std::string& fileName);
 	std::vector<SDL_Rect*>* GetSpriteSheetClips(const std::string& fileName, class SpriteComponent* sprComp);
 	std::vector<SDL_Rect*>* GetSpriteSheetClips(const std::string& fileName, class TileMapComponent* sprComp);
 
+	// SpriteSheet의 특정 Clip을 반환한다.
 	SDL_Rect* GetClip(const std::string& fileName, int sprNum);
 	SDL_Rect* GetClip(const std::string& fileName, int sprNum, class SpriteComponent* sprComp);
 

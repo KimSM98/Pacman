@@ -67,7 +67,6 @@ Direction GhostAIPatrol::GetRandomMovableDirection()
 	}
 
 	// 랜덤으로 방향 정하기
-	srand(time(NULL));
 	int randNum = rand() % movableDirection.size();
 
 	return movableDirection[randNum];
@@ -121,9 +120,8 @@ void GhostAIChase::Update(float deltaTime)
 
 	float distance = (targetPos - currentPos).Length();
 
-	if (distance > 64.f || _TimeSinceCahsing > _MaxChasingTime)
+	if (distance > _ChaseDistance || _TimeSinceCahsing > _MaxChasingTime)
 	{
-		//SDL_Log("DON'T FOLLOW PLAYER");
 		_Owner->ChangeState("Patrol");
 		return;
 	}

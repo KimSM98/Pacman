@@ -94,7 +94,7 @@ void Game::RunLoop()
 	}
 }
 
-void Game::AddColliders(CollisionComponent* colComp)
+void Game::AddCollider(CollisionComponent* colComp)
 {
 	_Colliders.push_back(colComp);
 }
@@ -225,6 +225,7 @@ void Game::GenerateOutput()
 	SDL_RenderPresent(_Renderer);
 }
 
+// 게임에 넣을 데이터. Unity의 Scnene과 같은 역할
 void Game::LoadData()
 {
 	/*******************
@@ -232,70 +233,60 @@ void Game::LoadData()
 	********************/
 	// Initialize
 	_SpriteSheetLib = new SpriteSheetLibrary(this);
-	
-	// BG를 만들 위치를 가진 액터 생성
-	Actor* temp = new Actor(this);
-	temp->SetPosition(Vector2(64.f, 0.f));
+	// Load Sprite sheet
+	_SpriteSheetLib->LoadSpriteSheet("Assets/TileMapSpriteSheet1.png", 32); 
+	_SpriteSheetLib->LoadSpriteSheet("Assets/PlayerSpriteSheet.png", 32);
+	_SpriteSheetLib->LoadSpriteSheet("Assets/Ghosts.png", 32);
 
 	/**************
 	Tile Map, Graph
 	***************/
+	// Tile Map을 배치할 위치를 정하기 위한 액터
+	Actor* temp = new Actor(this);
+	temp->SetPosition(Vector2(64.f, 0.f));
+	
 	// * Tile Map
-	// Load tile map sprite sheet
-	_SpriteSheetLib->LoadSpriteSheet("Assets/TileMapSpriteSheet1.png", 32); 
-
+	// Tile Map 생성
 	TileMapComponent* tileMap = new TileMapComponent(temp, 70);
+	// Tile Map에서 사용할 스프라이트 시트와 클립을 가져온다.
 	tileMap->SetClips(_SpriteSheetLib->GetSpriteSheetClips("Assets/TileMapSpriteSheet1.png", tileMap));
+	// csv파일로부터 타일 맵 정보를 가져오고, 타일을 생성한다.
 	tileMap->SetTileMapStateFromFile("Assets/Maps/Map_1.csv");
 
-	// Graph
+	// * Graph
+	// Graph 생성
 	_Graph = new Graph(temp, 69);
-	// 노드 사이즈
+	// 노드의 픽셀 사이즈(노드 간의 간격)
 	_Graph->SetDistanceBetweenNodes(32);
-	// 파일에서 그래프 받기
+	// csv 파일에서 그래프 정보 가져오기
 	_Graph->SetGraphStateFromFile("Assets/Maps/Map_1_Graph.csv");
 
 	/**********************
 	Player, Ghost Actor 생성
 	***********************/
-
-	// Sprite Sheet Library
-	_SpriteSheetLib->LoadSpriteSheet("Assets/PlayerSpriteSheet.png", 32);
-	
 	// * Player
 	_Pacman = new Pacman(this);
 	Node* node = _Graph->GetNode(1, 6);
+	// 해당 노드의 위치로 위치 초기화
 	_Pacman->InitPositionByNode(node);
-
-	// * Ghost Animation
-	// Asset폴더에서 스프라이트 시트 불러오기
-	_SpriteSheetLib->LoadSpriteSheet("Assets/Ghost_Red.png", 32);
-	_SpriteSheetLib->LoadSpriteSheet("Assets/Ghosts.png", 32);
-
+	
 	// * Ghost 1 + chase
-	Ghost* ghost = new GhostRed(this);
 	node = _Graph->GetNode(14, 13);
-	ghost->InitByNode(node);
+	Ghost* ghost = new GhostRed(this, node);
 	// Chasing 기능 추가
-	ghost->ActiveChaseAI(_Pacman);
-	// End of Ghost 1
+	ghost->ActiveChaseAI(_Pacman, 128.f, 5.f);
 
 	// * Ghost 2
-	ghost = new GhostBlue(this);
 	node = _Graph->GetNode(14, 11);
-	ghost->InitByNode(node);
+	ghost = new GhostBlue(this, node);
 		
 	// * Ghost 3
-	ghost = new GhostPink(this);
 	node = _Graph->GetNode(14, 12);
-	ghost->InitByNode(node);
-	// End of Ghost 3 
+	ghost = new GhostPink(this, node);
 	
 	// * Ghost 4
-	ghost = new GhostOrange(this);
 	node = _Graph->GetNode(14, 14);
-	ghost->InitByNode(node);
-	// End of Ghost 4 
+	ghost = new GhostOrange(this, node);
 }
 
 void Game::UnloadData()

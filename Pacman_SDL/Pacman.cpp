@@ -47,23 +47,9 @@ Pacman::Pacman(Game* game)
 	* Collider
 	**********/
 	_CircleComp = new CircleComponent(this);
-	// 게임에 콜라이더 추가. 게임에서 콜라이더를 그리기 위한 작업. Game::GenerateOutput()에서 사용.
-	game->AddColliders(_CircleComp);
 	// 설정
 	_CircleComp->SetRadius(20.f);
 	_CircleComp->SetActiveDrawing(true);
-}
-
-void Pacman::UpdateActor(float deltaTime)
-{
-	// Ghost와의 충돌 판정
-	//for (auto ghost : GetGame()->GetGhosts())
-	//{
-	//	if (Intersect(*_CircleComp, *(ghost->GetCircleComp())))
-	//	{
-	//		// 충돌 했을 때 실행할 내용
-	//	}
-	//}
 }
 
 void Pacman::InitPositionByNode(Node* node)
