@@ -116,21 +116,6 @@ int Graph::SetGraphStateFromFile(std::string fileName)
 	_AllowsDrawing = true;
 }
 
-void Graph::PrintNodes()
-{
-	for (auto v : _Nodes)
-	{
-		for (auto n : v)
-		{
-			if (n != nullptr)
-				std::cout << " 1 ";
-			else if (n == nullptr)
-				std::cout << " 0 ";
-		}
-		std::cout << '\n';
-	}
-}
-
 void Graph::ArrangeAdjNodes()
 {
 	int row = _Nodes.size();
@@ -183,5 +168,5 @@ void Graph::ArrangeAdjNodes()
 			}
 		}
 	}
-	std::cout << "정리 완료" << '\n';
+	SDL_Log("Graph arrangement completed.");
 }

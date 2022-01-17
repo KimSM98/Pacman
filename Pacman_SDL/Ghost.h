@@ -13,7 +13,7 @@ public:
 	class CircleComponent* GetCircleComp() { return _CircleComp; }
 
 	// Chase 기능을 추가하기 위한 함수
-	void ActiveChaseAI(Actor* target, float distance, float time);
+	void ActiveChaseAI(Actor* target, float distance, float chaseTime);
 
 protected:
 	class AnimSpriteSheetComponent* _AnimSprSheetComp;

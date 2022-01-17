@@ -111,7 +111,7 @@ void Ghost::InitAnimationComp()
 	_AnimMap["Death"] = anim;
 }
 
-void Ghost::ActiveChaseAI(Actor* target, float distance, float time)
+void Ghost::ActiveChaseAI(Actor* target, float distance, float chaseTime)
 {
 	IsChasing = true;
 	_Target = target;
@@ -121,7 +121,7 @@ void Ghost::ActiveChaseAI(Actor* target, float distance, float time)
 	GhostAIChase* chaseAI = new GhostAIChase(_AIComp, _Target);
 	chaseAI->SetPacmanMoveComponent(_MoveComp);
 	chaseAI->SetChaseDistance(distance); 
-	chaseAI->SetMaxChasingTime(time);
+	chaseAI->SetMaxChasingTime(chaseTime);
 
 	_AIComp->RegisterState(chaseAI);
 }

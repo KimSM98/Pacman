@@ -38,9 +38,9 @@ bool Game::Initialize()
 	}
 
 	_Window = SDL_CreateWindow(
-		"Pacman - Kim So-Min",
+		"Ham-Man",
 		100,
-		50,
+		30,
 		_WindowWidth,
 		_WindowHeight,
 		0
@@ -231,50 +231,48 @@ void Game::LoadData()
 	/*******************
 	Sprite Sheet Library
 	********************/
-	// Initialize
 	_SpriteSheetLib = new SpriteSheetLibrary(this);
 	// Load Sprite sheet
-	_SpriteSheetLib->LoadSpriteSheet("Assets/TileMapSpriteSheet1.png", 32); 
-	_SpriteSheetLib->LoadSpriteSheet("Assets/PlayerSpriteSheet.png", 32);
-	_SpriteSheetLib->LoadSpriteSheet("Assets/Ghosts.png", 32);
+	const std::string tileMapImg = "Assets/TileMapSpriteSheet.png";
+	const std::string playerImg = "Assets/PlayerSpriteSheet.png";
+	const std::string ghostImg = "Assets/Ghosts.png";
+	_SpriteSheetLib->LoadSpriteSheet(tileMapImg, 32);
+	_SpriteSheetLib->LoadSpriteSheet(playerImg, 32);
+	_SpriteSheetLib->LoadSpriteSheet(ghostImg, 32);
 
 	/**************
 	Tile Map, Graph
 	***************/
-	// Tile Map을 배치할 위치를 정하기 위한 액터
 	Actor* temp = new Actor(this);
 	temp->SetPosition(Vector2(64.f, 0.f));
 	
 	// * Tile Map
-	// Tile Map 생성
 	TileMapComponent* tileMap = new TileMapComponent(temp, 70);
 	// Tile Map에서 사용할 스프라이트 시트와 클립을 가져온다.
-	tileMap->SetClips(_SpriteSheetLib->GetSpriteSheetClips("Assets/TileMapSpriteSheet1.png", tileMap));
+	tileMap->SetClips(_SpriteSheetLib->GetSpriteSheetClips(tileMapImg, tileMap));
 	// csv파일로부터 타일 맵 정보를 가져오고, 타일을 생성한다.
-	tileMap->SetTileMapStateFromFile("Assets/Maps/Map_1.csv");
+	const std::string MapData = "Assets/Maps/Map_1.csv";
+	tileMap->SetTileMapStateFromFile(MapData);
 
 	// * Graph
-	// Graph 생성
 	_Graph = new Graph(temp, 69);
 	// 노드의 픽셀 사이즈(노드 간의 간격)
 	_Graph->SetDistanceBetweenNodes(32);
 	// csv 파일에서 그래프 정보 가져오기
-	_Graph->SetGraphStateFromFile("Assets/Maps/Map_1_Graph.csv");
+	const std::string MapGraphData = "Assets/Maps/Map_1_Graph.csv";
+	_Graph->SetGraphStateFromFile(MapGraphData);
 
 	/**********************
 	Player, Ghost Actor 생성
 	***********************/
 	// * Player
-	_Pacman = new Pacman(this);
-	Node* node = _Graph->GetNode(1, 6);
-	// 해당 노드의 위치로 위치 초기화
-	_Pacman->InitPositionByNode(node);
+	Node* node = _Graph->GetNode(23, 13);
+	_Pacman = new Pacman(this, node);
 	
 	// * Ghost 1 + chase
 	node = _Graph->GetNode(14, 13);
 	Ghost* ghost = new GhostRed(this, node);
-	// Chasing 기능 추가
-	ghost->ActiveChaseAI(_Pacman, 128.f, 5.f);
+	ghost->ActiveChaseAI(_Pacman, 100.f, 5.f);
 
 	// * Ghost 2
 	node = _Graph->GetNode(14, 11);

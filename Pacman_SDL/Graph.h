@@ -18,7 +18,6 @@ public:
 	int SetGraphStateFromFile(std::string fileName);
 	void SetDistanceBetweenNodes(int dist) { _DistanceBetweenNodes = dist; }
  
-	void PrintNodes();
 private:
 	void ArrangeAdjNodes();
  
