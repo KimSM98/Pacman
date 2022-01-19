@@ -27,3 +27,5 @@
 
 ## Youtube
 [![Video Label](http://img.youtube.com/vi/ZBEjrwBO8pM/0.jpg)](https://youtu.be/ZBEjrwBO8pM)
+
+※ 빨간 고스트는 Chase속성이 있습니다. 플레이어가 일정 거리 안에 들어오면 일정 시간 또는 일정 거리 동안 플레이어를 따라갑니다.
