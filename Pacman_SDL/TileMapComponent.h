@@ -13,7 +13,7 @@ public:
 
 	void Draw(SDL_Renderer* renderer) override;
 
-	int SetTileMapStateFromFile(std::string fileName);
+	void SetTileMapStateFromFile(std::string fileName);
 	void SetTileSetPixelSize(const int size) { _TileSetPixelsize = size; }
 	void SetClips(std::vector<SDL_Rect*>* vec) { _Clips = vec; }
 

@@ -103,7 +103,7 @@ void Ghost::InitCollider()
 void Ghost::InitAnimationComp()
 {
 	_AnimSprSheetComp = new AnimSpriteSheetComponent(this);
-	_AnimSprSheetComp->SetClip(GetGame()->GetSpriteSheetLib()->GetClip("Assets/Ghosts.png", 0, _AnimSprSheetComp));
+	GetGame()->GetSpriteSheetLib()->InitSpriteComp("Assets/Ghosts.png", _AnimSprSheetComp);
 	_AnimSprSheetComp->SetAnimClips(GetGame()->GetSpriteSheetLib()->GetSpriteSheetClips("Assets/Ghosts.png"));
 	_AnimSprSheetComp->SetAnimFPS(8.f);
 

@@ -35,14 +35,14 @@ void TileMapComponent::Draw(SDL_Renderer* renderer)
 	}	
 }
 
-int TileMapComponent::SetTileMapStateFromFile(std::string fileName)
+void TileMapComponent::SetTileMapStateFromFile(std::string fileName)
 {
 	std::ifstream input((fileName));
 
 	if (input.fail())
 	{
 		std::cout << "File Name : " << fileName << " does not exist." << '\n';
-		return 0;
+		return;
 	}
 
 	// 맵의 정보 받기

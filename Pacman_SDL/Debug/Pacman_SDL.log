@@ -1,5 +1,11 @@
 ﻿  Game.cpp
-  Ghost.cpp
-  Pacman.cpp
+  PacmanMap.cpp
+C:\Users\KSM\Desktop\Project\Pacman\Pacman\Pacman_SDL\PacmanMap.cpp(14,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\Users\KSM\Desktop\Project\Pacman\Pacman\Pacman_SDL\PacmanMap.cpp(18,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  SpriteSheetLibrary.cpp
+  TileMapComponent.cpp
+C:\Users\KSM\Desktop\Project\Pacman\Pacman\Pacman_SDL\TileMapComponent.cpp(57,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\Users\KSM\Desktop\Project\Pacman\Pacman\Pacman_SDL\TileMapComponent.cpp(84,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\Users\KSM\Desktop\Project\Pacman\Pacman\Pacman_SDL\TileMapComponent.cpp(86,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
   코드를 생성하고 있습니다...
   Pacman_SDL.vcxproj -> C:\Users\KSM\Desktop\Project\Pacman\Pacman\Pacman_SDL\Debug\Pacman_SDL.exe

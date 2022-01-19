@@ -19,7 +19,7 @@ Pacman::Pacman(Game* game, Node* node)
 void Pacman::InitAnimComp()
 {
 	_animSprSheetComp = new AnimSpriteSheetComponent(this);
-	_animSprSheetComp->SetClip(GetGame()->GetSpriteSheetLib()->GetClip("Assets/PlayerSpriteSheet.png", 0, _animSprSheetComp));
+	GetGame()->GetSpriteSheetLib()->InitSpriteComp("Assets/PlayerSpriteSheet.png", _animSprSheetComp);
 	_animSprSheetComp->SetAnimClips(GetGame()->GetSpriteSheetLib()->GetSpriteSheetClips("Assets/PlayerSpriteSheet.png"));
 
 	// 애니메이션 모음
